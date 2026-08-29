@@ -21,7 +21,7 @@ export function Panel({
   return (
     <section className={clsx('panel flex flex-col overflow-hidden', className)}>
       {(title || right) && (
-        <header className="flex items-center justify-between gap-3 border-b border-ink-800 px-4 py-2.5">
+        <header className="flex items-center justify-between gap-3 border-b border-slate-200 px-4 py-2.5">
           <div className="label-xs">{title}</div>
           {right}
         </header>
@@ -54,10 +54,12 @@ export function Button({
     'focus-ring inline-flex items-center justify-center gap-1.5 rounded-lg font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-45'
   const sizes = { sm: 'px-2.5 py-1 text-[11.5px]', md: 'px-3.5 py-2 text-[13px]' }
   const variants = {
-    primary: 'bg-brand-500 text-white hover:bg-brand-400',
-    secondary: 'border border-ink-600 bg-ink-800 text-ink-100 hover:border-ink-500 hover:bg-ink-700',
-    ghost: 'text-ink-300 hover:bg-ink-800 hover:text-ink-100',
-    danger: 'border border-bad-500/40 bg-bad-500/10 text-bad-400 hover:bg-bad-500/20',
+    // Wisteria at 2.63:1 on white cannot carry white text, so the primary
+    // action is a light fill with dark text. Hover deepens the fill.
+    primary: 'bg-brand-400 text-slate-900 hover:bg-brand-500',
+    secondary: 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50',
+    ghost: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
+    danger: 'border border-bad-200 bg-bad-50 text-bad-600 hover:bg-bad-100',
   }
   return (
     <button
@@ -77,10 +79,10 @@ export type StatusTone = 'ok' | 'pending' | 'fail' | 'idle' | 'info'
 export function StatusDot({ tone, pulse }: { tone: StatusTone; pulse?: boolean }) {
   const colors: Record<StatusTone, string> = {
     ok: 'bg-ok-500',
-    pending: 'bg-gold-500',
+    pending: 'bg-warn-500',
     fail: 'bg-bad-500',
-    idle: 'bg-ink-600',
-    info: 'bg-brand-400',
+    idle: 'bg-slate-300',
+    info: 'bg-brand-500',
   }
   return (
     <span
@@ -98,14 +100,14 @@ export function Check({ done, label, tone }: { done: boolean; label: string; ton
           'flex h-4 w-4 shrink-0 items-center justify-center rounded-[5px] border text-[10px] font-bold',
           done
             ? tone === 'fail'
-              ? 'border-bad-500/50 bg-bad-500/15 text-bad-400'
-              : 'border-ok-500/50 bg-ok-500/15 text-ok-400'
-            : 'border-ink-600 bg-ink-850 text-ink-500',
+              ? 'border-bad-500 bg-bad-500 text-white'
+              : 'border-ok-400 bg-ok-400 text-slate-900'
+            : 'border-slate-300 bg-white text-slate-400',
         )}
       >
         {done ? (tone === 'fail' ? '×' : '✓') : ''}
       </span>
-      <span className={done ? 'text-ink-100' : 'text-ink-400'}>{label}</span>
+      <span className={done ? 'text-slate-900' : 'text-slate-600'}>{label}</span>
     </div>
   )
 }
@@ -120,12 +122,13 @@ export function Badge({
   className?: string
 }) {
   const tones = {
-    neutral: 'border-ink-600 bg-ink-800 text-ink-300',
-    ok: 'border-ok-500/35 bg-ok-500/10 text-ok-400',
-    warn: 'border-warn-500/35 bg-warn-500/10 text-warn-500',
-    bad: 'border-bad-500/35 bg-bad-500/10 text-bad-400',
-    brand: 'border-brand-400/35 bg-brand-500/15 text-brand-300',
-    gold: 'border-gold-500/35 bg-gold-500/10 text-gold-400',
+    neutral: 'border-slate-200 bg-slate-50 text-slate-600',
+    ok: 'border-ok-200 bg-ok-50 text-ok-700',
+    // Amber is 1.68:1 on white and never carries text: 700 on a 50 fill.
+    warn: 'border-warn-200 bg-warn-50 text-warn-700',
+    bad: 'border-bad-200 bg-bad-50 text-bad-700',
+    brand: 'border-brand-200 bg-brand-50 text-brand-700',
+    gold: 'border-gold-200 bg-gold-50 text-gold-700',
   }
   return (
     <span
@@ -144,15 +147,15 @@ export function Field({ label, children }: { label: string; children: ReactNode 
   return (
     <div className="flex items-baseline justify-between gap-3 py-1">
       <span className="label-xs">{label}</span>
-      <span className="mono text-right text-[12px] text-ink-100">{children}</span>
+      <span className="mono text-right text-[12px] text-slate-900">{children}</span>
     </div>
   )
 }
 
 export function Meter({ value, tone = 'brand' }: { value: number; tone?: 'brand' | 'ok' | 'gold' }) {
-  const colors = { brand: 'bg-brand-400', ok: 'bg-ok-500', gold: 'bg-gold-500' }
+  const colors = { brand: 'bg-brand-400', ok: 'bg-ok-400', gold: 'bg-warn-400' }
   return (
-    <div className="h-1 w-full overflow-hidden rounded-full bg-ink-800">
+    <div className="h-1 w-full overflow-hidden rounded-full bg-slate-100">
       <div
         className={clsx('h-full rounded-full transition-[width] duration-500', colors[tone])}
         style={{ width: `${Math.max(0, Math.min(100, value * 100))}%` }}

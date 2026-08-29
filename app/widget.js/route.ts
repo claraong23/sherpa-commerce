@@ -25,7 +25,7 @@ export async function GET() {
   var AGENT_ID = (current && current.getAttribute('data-agent-id')) ||
     (window.AGENTIC_COMMERCE && window.AGENTIC_COMMERCE.agentId) || '';
   var BASE = ${JSON.stringify(appUrl)};
-  var ACCENT = (current && current.getAttribute('data-accent')) || '#1a1f71';
+  var ACCENT = (current && current.getAttribute('data-accent')) || '#3f60bc';
 
   if (!MERCHANT_ID) { console.warn('[agentic-commerce] data-merchant-id is required'); return; }
   if (document.getElementById('acw-root')) return;
@@ -44,24 +44,24 @@ export async function GET() {
     '#acw-root{position:fixed;right:20px;bottom:20px;z-index:2147483000;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}',
     '#acw-btn{width:56px;height:56px;border-radius:28px;border:0;cursor:pointer;background:' + ACCENT + ';color:#fff;box-shadow:0 8px 26px rgba(0,0,0,.24);display:flex;align-items:center;justify-content:center}',
     '#acw-btn svg{width:24px;height:24px}',
-    '#acw-panel{position:absolute;right:0;bottom:70px;width:370px;max-width:calc(100vw - 40px);height:520px;max-height:calc(100vh - 120px);background:#fff;border:1px solid #e3e6ec;border-radius:14px;box-shadow:0 20px 60px rgba(15,23,42,.22);display:none;flex-direction:column;overflow:hidden}',
+    '#acw-panel{position:absolute;right:0;bottom:70px;width:370px;max-width:calc(100vw - 40px);height:520px;max-height:calc(100vh - 120px);background:#fff;border:1px solid #dbe1ed;border-radius:14px;box-shadow:0 20px 60px rgba(15,23,42,.22);display:none;flex-direction:column;overflow:hidden}',
     '#acw-panel.acw-open{display:flex}',
-    '#acw-head{padding:13px 15px;border-bottom:1px solid #eef0f4;display:flex;align-items:center;justify-content:space-between}',
-    '#acw-title{font-size:13.5px;font-weight:600;color:#0f172a}',
-    '#acw-sub{font-size:11px;color:#64748b;margin-top:2px}',
-    '#acw-close{border:0;background:none;cursor:pointer;color:#94a3b8;font-size:18px;line-height:1;padding:2px 4px}',
+    '#acw-head{padding:13px 15px;border-bottom:1px solid #eaeef6;display:flex;align-items:center;justify-content:space-between}',
+    '#acw-title{font-size:13.5px;font-weight:600;color:#171c28}',
+    '#acw-sub{font-size:11px;color:#4e5871;margin-top:2px}',
+    '#acw-close{border:0;background:none;cursor:pointer;color:#9aa4b8;font-size:18px;line-height:1;padding:2px 4px}',
     '#acw-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#fbfcfe}',
     '.acw-m{font-size:13px;line-height:1.5;padding:9px 12px;border-radius:11px;max-width:86%;white-space:pre-wrap;word-wrap:break-word}',
-    '.acw-a{background:#fff;border:1px solid #e6e9ef;color:#111827;align-self:flex-start}',
+    '.acw-a{background:#fff;border:1px solid #dbe1ed;color:#171c28;align-self:flex-start}',
     '.acw-u{background:' + ACCENT + ';color:#fff;align-self:flex-end}',
-    '.acw-p{border:1px solid #e6e9ef;background:#fff;border-radius:10px;padding:9px 11px;font-size:12px;color:#0f172a;display:flex;justify-content:space-between;gap:10px}',
+    '.acw-p{border:1px solid #dbe1ed;background:#fff;border-radius:10px;padding:9px 11px;font-size:12px;color:#171c28;display:flex;justify-content:space-between;gap:10px}',
     '.acw-p b{font-weight:600}',
-    '#acw-form{display:flex;gap:8px;padding:11px;border-top:1px solid #eef0f4;background:#fff}',
-    '#acw-in{flex:1;border:1px solid #dfe3ea;border-radius:9px;padding:9px 11px;font-size:13px;outline:none;font-family:inherit}',
+    '#acw-form{display:flex;gap:8px;padding:11px;border-top:1px solid #eaeef6;background:#fff}',
+    '#acw-in{flex:1;border:1px solid #dbe1ed;border-radius:9px;padding:9px 11px;font-size:13px;outline:none;font-family:inherit}',
     '#acw-in:focus{border-color:' + ACCENT + '}',
     '#acw-send{border:0;background:' + ACCENT + ';color:#fff;border-radius:9px;padding:0 14px;font-size:13px;font-weight:600;cursor:pointer}',
     '#acw-send:disabled{opacity:.5;cursor:default}',
-    '#acw-foot{padding:6px 12px;font-size:10px;color:#94a3b8;background:#fff;border-top:1px solid #f1f3f7;text-align:center}'
+    '#acw-foot{padding:6px 12px;font-size:10px;color:#9aa4b8;background:#fff;border-top:1px solid #eaeef6;text-align:center}'
   ].join('');
 
   root.innerHTML =
@@ -98,7 +98,7 @@ export async function GET() {
     var d = document.createElement('div');
     d.className = 'acw-p';
     var left = document.createElement('div');
-    left.innerHTML = '<b></b><br><span style="color:#64748b"></span>';
+    left.innerHTML = '<b></b><br><span style="color:#4e5871"></span>';
     left.querySelector('b').textContent = p.title;
     left.querySelector('span').textContent = p.specs.gpu + ' \\u00b7 ' + p.specs.ramGb + ' GB \\u00b7 ' + p.warrantyYears + 'y warranty';
     var right = document.createElement('div');

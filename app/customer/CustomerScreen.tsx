@@ -409,7 +409,7 @@ export function CustomerScreen({
   /* ─────────────────────────────  Render  ───────────────────────────── */
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-ink-950">
+    <div className="flex h-screen flex-col overflow-hidden bg-slate-25">
       <TopBar phase={phase} connected={connected} sessionId={sessionId} eventCount={events.length} />
 
       <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[3fr_1fr]">
@@ -446,13 +446,13 @@ export function CustomerScreen({
         </div>
 
         {/* ── Consumer chat ── */}
-        <aside className="flex min-h-0 flex-col border-t border-ink-800 bg-ink-900 lg:border-t-0 lg:border-l">
-          <header className="flex items-center justify-between border-b border-ink-800 px-4 py-3">
+        <aside className="flex min-h-0 flex-col border-t border-slate-200 bg-white lg:border-t-0 lg:border-l">
+          <header className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
             <div>
-              <div className="text-[13px] font-semibold text-white">Your shopping agent</div>
-              <div className="text-[10.5px] text-ink-500">Working for you, not the merchants</div>
+              <div className="text-[13px] font-semibold text-slate-900">Your shopping agent</div>
+              <div className="text-[10.5px] text-slate-500">Working for you, not the merchants</div>
             </div>
-            {busy && <Spinner className="text-brand-300" />}
+            {busy && <Spinner className="text-brand-600" />}
           </header>
 
           <div ref={logRef} className="min-h-0 flex-1 space-y-3 overflow-auto px-4 py-4">
@@ -493,7 +493,7 @@ export function CustomerScreen({
                       runRound(p)
                     }}
                     disabled={busy || !sessionId}
-                    className="focus-ring w-full rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-left text-[11.5px] leading-relaxed text-ink-300 transition-colors hover:border-brand-400/50 hover:text-ink-100 disabled:opacity-50"
+                    className="focus-ring w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-left text-[11.5px] leading-relaxed text-slate-700 transition-colors hover:border-brand-300 hover:text-slate-900 disabled:opacity-50"
                   >
                     {p}
                   </button>
@@ -502,14 +502,14 @@ export function CustomerScreen({
             )}
           </div>
 
-          <form onSubmit={onSubmit} className="border-t border-ink-800 p-3">
+          <form onSubmit={onSubmit} className="border-t border-slate-200 p-3">
             <div className="flex gap-2">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={selectedOfferId ? 'Ask, counter, or change priorities…' : 'What do you need?'}
                 disabled={busy || !sessionId}
-                className="focus-ring min-w-0 flex-1 rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-[13px] text-ink-100 placeholder:text-ink-600 disabled:opacity-50"
+                className="focus-ring min-w-0 flex-1 rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-400 disabled:opacity-50"
               />
               <Button type="submit" disabled={busy || !input.trim() || !sessionId}>
                 Send
@@ -549,9 +549,9 @@ function TopBar({
   const idx = PHASES.findIndex((p) => p.key === phase)
 
   return (
-    <header className="flex shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-ink-800 bg-ink-900 px-4 py-2.5">
+    <header className="flex shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-slate-200 bg-white px-4 py-2.5">
       <div className="flex items-center gap-3">
-        <Link href="/" className="text-[12px] font-semibold text-ink-300 hover:text-white">
+        <Link href="/" className="text-[12px] font-semibold text-slate-700 hover:text-slate-900">
           ← Agentic commerce
         </Link>
         <span className="label-xs">Live offer round</span>
@@ -560,15 +560,15 @@ function TopBar({
       <nav className="flex items-center gap-1 overflow-x-auto">
         {PHASES.map((p, i) => (
           <span key={p.key} className="flex items-center gap-1">
-            {i > 0 && <span className="text-ink-700">›</span>}
+            {i > 0 && <span className="text-slate-300">›</span>}
             <span
               className={clsx(
                 'whitespace-nowrap rounded px-1.5 py-0.5 text-[10.5px] transition-colors',
                 phase === 'failed' && i === idx
-                  ? 'bg-bad-500/15 text-bad-400'
+                  ? 'bg-bad-50 text-bad-600'
                   : idx >= i && idx >= 0
-                    ? 'bg-brand-500/15 text-brand-300'
-                    : 'text-ink-600',
+                    ? 'bg-brand-50 text-brand-600'
+                    : 'text-slate-400',
               )}
             >
               {p.label}
@@ -582,7 +582,7 @@ function TopBar({
           <StatusDot tone={connected ? 'ok' : 'idle'} pulse={connected} />
           SSE · {eventCount}
         </Badge>
-        <span className="mono hidden text-[10px] text-ink-600 sm:inline">{sessionId}</span>
+        <span className="mono hidden text-[10px] text-slate-400 sm:inline">{sessionId}</span>
       </div>
     </header>
   )
@@ -592,7 +592,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2.5 pt-1">
       <span className="label-xs">{children}</span>
-      <div className="h-px flex-1 bg-ink-800" />
+      <div className="h-px flex-1 bg-slate-100" />
     </div>
   )
 }
@@ -601,7 +601,7 @@ function Bubble({ msg }: { msg: ChatMsg }) {
   if (msg.role === 'user') {
     return (
       <div className="anim-in flex justify-end">
-        <div className="max-w-[88%] rounded-xl rounded-br-sm bg-brand-500 px-3 py-2 text-[12.5px] leading-relaxed text-white">
+        <div className="max-w-[88%] rounded-xl rounded-br-sm bg-brand-500 px-3 py-2 text-[12.5px] leading-relaxed text-slate-900">
           {msg.text}
         </div>
       </div>
@@ -613,10 +613,10 @@ function Bubble({ msg }: { msg: ChatMsg }) {
         className={clsx(
           'max-w-[92%] rounded-xl rounded-bl-sm border px-3 py-2 text-[12.5px] leading-relaxed',
           msg.kind === 'error'
-            ? 'border-bad-500/35 bg-bad-500/10 text-bad-400'
+            ? 'border-bad-200 bg-bad-50 text-bad-600'
             : msg.kind === 'receipt'
-              ? 'border-ok-500/35 bg-ok-500/10 text-ok-400'
-              : 'border-ink-700 bg-ink-850 text-ink-100',
+              ? 'border-ok-200 bg-ok-50 text-ok-600'
+              : 'border-slate-300 bg-slate-50 text-slate-900',
         )}
       >
         {msg.text}
@@ -642,13 +642,13 @@ function OfferCard({
 }) {
   if (!offer) return null
   return (
-    <div className="anim-in rounded-xl border border-ink-700 bg-ink-850 p-3">
+    <div className="anim-in rounded-xl border border-slate-300 bg-slate-50 p-3">
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <div className="text-[13px] leading-snug font-semibold text-white">{offer.product.title}</div>
-          <div className="mt-0.5 text-[11px] text-ink-400">{offer.merchantName}</div>
+          <div className="text-[13px] leading-snug font-semibold text-slate-900">{offer.product.title}</div>
+          <div className="mt-0.5 text-[11px] text-slate-600">{offer.merchantName}</div>
         </div>
-        <div className="mono shrink-0 text-[15px] font-semibold text-white">
+        <div className="mono shrink-0 text-[15px] font-semibold text-slate-900">
           {offer.currency} {Math.round(offer.price).toLocaleString('en-SG')}
         </div>
       </div>
@@ -667,8 +667,8 @@ function OfferCard({
       {offer.tradeoffs.length > 0 && (
         <ul className="mt-2 space-y-0.5">
           {offer.tradeoffs.map((t) => (
-            <li key={t} className="flex gap-1.5 text-[10.5px] leading-relaxed text-ink-500">
-              <span className="text-warn-500">·</span>
+            <li key={t} className="flex gap-1.5 text-[10.5px] leading-relaxed text-slate-500">
+              <span className="text-warn-700">·</span>
               {t}
             </li>
           ))}
@@ -701,7 +701,7 @@ function InstructionCard({
   step: 'idle' | 'passkey' | 'authorizing'
 }) {
   return (
-    <div className="anim-in rounded-xl border border-brand-400/40 bg-brand-500/[0.08] p-3">
+    <div className="anim-in rounded-xl border border-brand-300 bg-brand-50 p-3">
       <div className="label-xs mb-2">Payment Instruction</div>
       <dl className="space-y-1 text-[11.5px]">
         <Pair k="Merchant" v={`${view.merchantName} only`} />
@@ -726,7 +726,7 @@ function InstructionCard({
             ? 'Authorizing…'
             : 'Confirm with Passkey'}
       </Button>
-      <p className="mt-1.5 text-[9.5px] leading-relaxed text-ink-500">
+      <p className="mt-1.5 text-[9.5px] leading-relaxed text-slate-500">
         Uses a browser passkey where available; otherwise an explicitly-labelled simulated confirmation.
       </p>
     </div>
@@ -736,8 +736,8 @@ function InstructionCard({
 function Pair({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex items-baseline justify-between gap-2">
-      <dt className="text-ink-400">{k}</dt>
-      <dd className="mono text-right text-ink-100">{v}</dd>
+      <dt className="text-slate-600">{k}</dt>
+      <dd className="mono text-right text-slate-900">{v}</dd>
     </div>
   )
 }

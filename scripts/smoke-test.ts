@@ -339,7 +339,7 @@ async function main() {
 
   /* ── 9. Storefront isolation ── */
   head('9. Storefront merchant isolation')
-  const tan = merchants.find((m) => m.id === 'tan-computers') ?? merchants[0]
+  const tan = merchants.find((m) => m.id === 'sherpa-computers') ?? merchants[0]
   const rival = merchants.find((m) => m.id !== tan.id)!
 
   const inScope = await storefrontChat({

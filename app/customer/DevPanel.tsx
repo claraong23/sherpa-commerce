@@ -84,8 +84,8 @@ export function DevPanel({
         className={clsx(
           'focus-ring fixed bottom-3 left-3 z-40 rounded-md border px-2 py-1 text-[10px] font-medium transition-colors',
           active > 0
-            ? 'border-bad-500/50 bg-bad-500/15 text-bad-400'
-            : 'border-ink-700 bg-ink-850 text-ink-500 hover:text-ink-300',
+            ? 'border-bad-200 bg-bad-50 text-bad-600'
+            : 'border-slate-300 bg-slate-50 text-slate-500 hover:text-slate-700',
         )}
         title="Developer panel (Ctrl/Cmd + Shift + D)"
       >
@@ -93,16 +93,16 @@ export function DevPanel({
       </button>
 
       {open && (
-        <div className="anim-in fixed bottom-12 left-3 z-40 w-[330px] rounded-xl border border-ink-700 bg-ink-900 shadow-2xl">
-          <header className="flex items-center justify-between border-b border-ink-800 px-3.5 py-2.5">
+        <div className="anim-in fixed bottom-12 left-3 z-40 w-[330px] rounded-xl border border-slate-300 bg-white shadow-2xl">
+          <header className="flex items-center justify-between border-b border-slate-200 px-3.5 py-2.5">
             <span className="label-xs">Failure injection · Q&amp;A</span>
-            <button onClick={() => setOpen(false)} className="text-[15px] leading-none text-ink-500 hover:text-ink-200">
+            <button onClick={() => setOpen(false)} className="text-[15px] leading-none text-slate-500 hover:text-slate-800">
               ×
             </button>
           </header>
 
           <div className="max-h-[52vh] overflow-auto p-2.5">
-            <p className="mb-2.5 px-1 text-[10.5px] leading-relaxed text-ink-500">
+            <p className="mb-2.5 px-1 text-[10.5px] leading-relaxed text-slate-500">
               These trigger real server-side validation failures on the next run — not a mocked error
               screen.
             </p>
@@ -110,7 +110,7 @@ export function DevPanel({
             {FAULTS.map((f) => (
               <label
                 key={f.key}
-                className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2 py-2 hover:bg-ink-850"
+                className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2 py-2 hover:bg-slate-50"
               >
                 <input
                   type="checkbox"
@@ -119,9 +119,9 @@ export function DevPanel({
                   className="mt-0.5 h-3.5 w-3.5 accent-[#ef4444]"
                 />
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[12px] font-medium text-ink-100">{f.label}</span>
-                  <span className="mono mt-0.5 block text-[9.5px] text-bad-400">{f.produces}</span>
-                  <span className="mt-0.5 block text-[10px] leading-relaxed text-ink-500">{f.stage}</span>
+                  <span className="block text-[12px] font-medium text-slate-900">{f.label}</span>
+                  <span className="mono mt-0.5 block text-[9.5px] text-bad-600">{f.produces}</span>
+                  <span className="mt-0.5 block text-[10px] leading-relaxed text-slate-500">{f.stage}</span>
                 </span>
               </label>
             ))}
@@ -146,7 +146,7 @@ export function DevPanel({
             </div>
 
             {status && (
-              <div className="mt-3 border-t border-ink-800 px-1 pt-2.5">
+              <div className="mt-3 border-t border-slate-200 px-1 pt-2.5">
                 <div className="label-xs mb-1.5">Integration status</div>
                 <div className="space-y-0.5">
                   {(
@@ -160,13 +160,13 @@ export function DevPanel({
                     ] as [string, unknown][]
                   ).map(([k, v]) => (
                     <div key={k} className="flex items-baseline justify-between text-[10.5px]">
-                      <span className="text-ink-500">{k}</span>
-                      <span className="mono text-ink-300">{String(v)}</span>
+                      <span className="text-slate-500">{k}</span>
+                      <span className="mono text-slate-700">{String(v)}</span>
                     </div>
                   ))}
                 </div>
                 {typeof status.tap === 'object' && status.tap !== null && (
-                  <p className="mt-2 text-[9.5px] leading-relaxed text-ink-600">
+                  <p className="mt-2 text-[9.5px] leading-relaxed text-slate-400">
                     {String((status.tap as Record<string, unknown>).note ?? '')}
                   </p>
                 )}
@@ -174,7 +174,7 @@ export function DevPanel({
             )}
           </div>
 
-          <footer className="border-t border-ink-800 px-3.5 py-2">
+          <footer className="border-t border-slate-200 px-3.5 py-2">
             <Badge tone="neutral">Ctrl/Cmd + Shift + D</Badge>
           </footer>
         </div>

@@ -82,17 +82,17 @@ export function StorefrontChat({
   return (
     <>
       {open && (
-        <div className="anim-in fixed bottom-20 right-5 z-50 flex h-[540px] max-h-[calc(100vh-120px)] w-[380px] max-w-[calc(100vw-40px)] flex-col overflow-hidden rounded-2xl border border-ink-700 bg-ink-900 shadow-2xl">
-          <header className="flex items-start justify-between border-b border-ink-800 px-4 py-3">
+        <div className="anim-in fixed bottom-20 right-5 z-50 flex h-[540px] max-h-[calc(100vh-120px)] w-[380px] max-w-[calc(100vw-40px)] flex-col overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-2xl">
+          <header className="flex items-start justify-between border-b border-slate-200 px-4 py-3">
             <div>
-              <div className="text-[13px] font-semibold text-white">{merchantName} assistant</div>
+              <div className="text-[13px] font-semibold text-slate-900">{merchantName} assistant</div>
               <div className="mt-0.5 flex items-center gap-1.5">
-                <span className="text-[10.5px] text-ink-500">Scoped to this store’s catalogue</span>
+                <span className="text-[10.5px] text-slate-500">Scoped to this store’s catalogue</span>
               </div>
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="focus-ring rounded px-1 text-[17px] leading-none text-ink-500 hover:text-ink-200"
+              className="focus-ring rounded px-1 text-[17px] leading-none text-slate-500 hover:text-slate-800"
               aria-label="Close"
             >
               ×
@@ -102,7 +102,7 @@ export function StorefrontChat({
           <div ref={logRef} className="flex-1 space-y-3 overflow-auto px-4 py-4">
             {messages.length === 0 && (
               <>
-                <div className="rounded-xl rounded-bl-sm border border-ink-700 bg-ink-850 px-3 py-2 text-[12.5px] leading-relaxed text-ink-100">
+                <div className="rounded-xl rounded-bl-sm border border-slate-300 bg-slate-50 px-3 py-2 text-[12.5px] leading-relaxed text-slate-900">
                   Hi — tell me what you need the laptop for and your budget, and I’ll find the closest match
                   in {merchantName}’s range.
                 </div>
@@ -111,7 +111,7 @@ export function StorefrontChat({
                     <button
                       key={s}
                       onClick={() => send(s)}
-                      className="focus-ring w-full rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-left text-[11.5px] leading-relaxed text-ink-400 hover:border-brand-400/50 hover:text-ink-100"
+                      className="focus-ring w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-left text-[11.5px] leading-relaxed text-slate-600 hover:border-brand-300 hover:text-slate-900"
                     >
                       {s}
                     </button>
@@ -127,10 +127,10 @@ export function StorefrontChat({
                     className={clsx(
                       'max-w-[90%] rounded-xl px-3 py-2 text-[12.5px] leading-relaxed',
                       m.role === 'user'
-                        ? 'rounded-br-sm bg-brand-500 text-white'
+                        ? 'rounded-br-sm bg-brand-400 text-slate-900'
                         : m.refused
-                          ? 'rounded-bl-sm border border-warn-500/40 bg-warn-500/[0.08] text-warn-500'
-                          : 'rounded-bl-sm border border-ink-700 bg-ink-850 text-ink-100',
+                          ? 'rounded-bl-sm border border-warn-200 bg-warn-50 text-warn-700'
+                          : 'rounded-bl-sm border border-slate-300 bg-slate-50 text-slate-900',
                     )}
                   >
                     {m.text}
@@ -148,15 +148,15 @@ export function StorefrontChat({
                     {m.products.slice(0, 3).map((p) => (
                       <div
                         key={p.id}
-                        className="flex items-center justify-between gap-2 rounded-lg border border-ink-700 bg-ink-850 px-2.5 py-2"
+                        className="flex items-center justify-between gap-2 rounded-lg border border-slate-300 bg-slate-50 px-2.5 py-2"
                       >
                         <div className="min-w-0">
-                          <div className="truncate text-[11.5px] font-medium text-ink-100">{p.title}</div>
-                          <div className="mono truncate text-[9.5px] text-ink-500">
+                          <div className="truncate text-[11.5px] font-medium text-slate-900">{p.title}</div>
+                          <div className="mono truncate text-[9.5px] text-slate-500">
                             {p.specs.gpu} · {p.specs.ramGb} GB · {p.warrantyYears}y
                           </div>
                         </div>
-                        <div className="mono shrink-0 text-[12px] font-semibold text-white">
+                        <div className="mono shrink-0 text-[12px] font-semibold text-slate-900">
                           {p.currency} {Math.round(p.price).toLocaleString('en-SG')}
                         </div>
                       </div>
@@ -167,8 +167,8 @@ export function StorefrontChat({
             ))}
 
             {busy && (
-              <div className="flex items-center gap-2 text-[11.5px] text-ink-500">
-                <Spinner className="text-brand-300" />
+              <div className="flex items-center gap-2 text-[11.5px] text-slate-500">
+                <Spinner className="text-brand-600" />
                 Checking the catalogue…
               </div>
             )}
@@ -179,7 +179,7 @@ export function StorefrontChat({
               e.preventDefault()
               send(input)
             }}
-            className="border-t border-ink-800 p-3"
+            className="border-t border-slate-200 p-3"
           >
             <div className="flex gap-2">
               <input
@@ -187,7 +187,7 @@ export function StorefrontChat({
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="What do you need it for?"
                 disabled={busy}
-                className="focus-ring min-w-0 flex-1 rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-[12.5px] text-ink-100 placeholder:text-ink-600"
+                className="focus-ring min-w-0 flex-1 rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-[12.5px] text-slate-900 placeholder:text-slate-400"
               />
               <Button type="submit" size="sm" disabled={busy || !input.trim()}>
                 Send

@@ -47,12 +47,12 @@ export function CustomerAgentPanel({
     <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
       {/* ── Left: what the customer agent is optimising ── */}
       <div className="panel flex flex-col overflow-hidden">
-        <header className="flex items-center justify-between border-b border-ink-800 px-4 py-2.5">
+        <header className="flex items-center justify-between border-b border-slate-200 px-4 py-2.5">
           <span className="label-xs">Customer agent</span>
           <Badge tone="brand">Optimising customer utility</Badge>
         </header>
 
-        <div className="space-y-1 border-b border-ink-800 px-4 py-3">
+        <div className="space-y-1 border-b border-slate-200 px-4 py-3">
           <Line label="Hard filters" done={filtered} />
           <Line label="Factual checks" done={verified} />
           <Line label="Scoring" done={scored} />
@@ -65,15 +65,15 @@ export function CustomerAgentPanel({
               {weights.map(([k, v]) => (
                 <div key={k}>
                   <div className="mb-0.5 flex items-baseline justify-between text-[11px]">
-                    <span className="text-ink-300">{DIM_LABEL[k] ?? k}</span>
-                    <span className="mono text-ink-500">{Math.round(((v as number) / weightTotal) * 100)}%</span>
+                    <span className="text-slate-700">{DIM_LABEL[k] ?? k}</span>
+                    <span className="mono text-slate-500">{Math.round(((v as number) / weightTotal) * 100)}%</span>
                   </div>
                   <Meter value={(v as number) / weightTotal / 0.45} />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-[11.5px] text-ink-600">Awaiting a request.</div>
+            <div className="text-[11.5px] text-slate-400">Awaiting a request.</div>
           )}
 
           {intent && (
@@ -89,7 +89,7 @@ export function CustomerAgentPanel({
                       </Badge>
                     ))
                 ) : (
-                  <span className="text-[11.5px] text-ink-600">None stated.</span>
+                  <span className="text-[11.5px] text-slate-400">None stated.</span>
                 )}
               </div>
             </>
@@ -99,16 +99,16 @@ export function CustomerAgentPanel({
 
       {/* ── Right: the ranking ── */}
       <div className="panel flex flex-col overflow-hidden">
-        <header className="flex items-center justify-between border-b border-ink-800 px-4 py-2.5">
+        <header className="flex items-center justify-between border-b border-slate-200 px-4 py-2.5">
           <span className="label-xs">Independent ranking</span>
-          <span className="mono text-[10.5px] text-ink-500">
+          <span className="mono text-[10.5px] text-slate-500">
             {ranked.length} scored · {rejected.length} eliminated
           </span>
         </header>
 
         <div className="flex-1 overflow-auto">
           {ranked.length === 0 && rejected.length === 0 ? (
-            <div className="px-4 py-8 text-center text-[12px] text-ink-600">
+            <div className="px-4 py-8 text-center text-[12px] text-slate-400">
               Ranking appears once merchant agents seal their offers.
             </div>
           ) : (
@@ -118,14 +118,14 @@ export function CustomerAgentPanel({
                   key={s.offerId}
                   onClick={() => onSelect(s.offerId)}
                   className={clsx(
-                    'focus-ring anim-in flex w-full items-start gap-3 border-b border-ink-800 px-4 py-2.5 text-left transition-colors hover:bg-ink-850',
-                    selectedOfferId === s.offerId && 'bg-brand-500/10',
+                    'focus-ring anim-in flex w-full items-start gap-3 border-b border-slate-200 px-4 py-2.5 text-left transition-colors hover:bg-slate-50',
+                    selectedOfferId === s.offerId && 'bg-brand-50',
                   )}
                 >
                   <span
                     className={clsx(
                       'mono mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-[11px] font-bold',
-                      s.rank === 1 ? 'bg-gold-500 text-ink-950' : 'bg-ink-800 text-ink-300',
+                      s.rank === 1 ? 'bg-gold-500 text-slate-900' : 'bg-slate-100 text-slate-700',
                     )}
                   >
                     {s.rank}
@@ -133,10 +133,10 @@ export function CustomerAgentPanel({
 
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center gap-1.5">
-                      <span className="truncate text-[13px] font-medium text-white">{s.merchantName}</span>
+                      <span className="truncate text-[13px] font-medium text-slate-900">{s.merchantName}</span>
                       {s.label && <Badge tone={s.rank === 1 ? 'gold' : 'neutral'}>{s.label}</Badge>}
                     </span>
-                    <span className="mt-1 flex flex-wrap gap-x-2.5 gap-y-0.5 text-[10.5px] text-ink-500">
+                    <span className="mt-1 flex flex-wrap gap-x-2.5 gap-y-0.5 text-[10.5px] text-slate-500">
                       {Object.entries(s.breakdown)
                         .filter(([, v]) => v.weight > 0.04)
                         .sort((a, b) => b[1].contribution - a[1].contribution)
@@ -149,18 +149,18 @@ export function CustomerAgentPanel({
                     </span>
                   </span>
 
-                  <span className="mono shrink-0 text-[16px] font-semibold text-white">{s.scorePct}</span>
+                  <span className="mono shrink-0 text-[16px] font-semibold text-slate-900">{s.scorePct}</span>
                 </button>
               ))}
 
               {rejected.map((r, i) => (
-                <div key={i} className="border-b border-ink-800 px-4 py-2 opacity-70">
+                <div key={i} className="border-b border-slate-200 px-4 py-2 opacity-70">
                   <div className="flex items-center gap-1.5">
                     <StatusDot tone="fail" />
-                    <span className="text-[12px] text-ink-300 line-through">{r.merchantName}</span>
-                    <span className="truncate text-[11px] text-ink-600">{r.product}</span>
+                    <span className="text-[12px] text-slate-700 line-through">{r.merchantName}</span>
+                    <span className="truncate text-[11px] text-slate-400">{r.product}</span>
                   </div>
-                  <div className="mt-0.5 pl-3.5 text-[10.5px] text-bad-400">
+                  <div className="mt-0.5 pl-3.5 text-[10.5px] text-bad-600">
                     {r.violations.map((v) => v.detail).join(' · ')}
                   </div>
                 </div>
@@ -176,7 +176,7 @@ export function CustomerAgentPanel({
 function Line({ label, done }: { label: string; done: boolean }) {
   return (
     <div className="flex items-center justify-between text-[12px]">
-      <span className={done ? 'text-ink-100' : 'text-ink-600'}>{label}</span>
+      <span className={done ? 'text-slate-900' : 'text-slate-400'}>{label}</span>
       <StatusDot tone={done ? 'ok' : 'idle'} />
     </div>
   )
@@ -211,20 +211,20 @@ function constraintLabel(key: string, value: string | number | boolean): string 
 export function EventLog({ events }: { events: AgentEvent[] }) {
   return (
     <div className="panel flex max-h-64 flex-col overflow-hidden">
-      <header className="flex items-center justify-between border-b border-ink-800 px-4 py-2">
+      <header className="flex items-center justify-between border-b border-slate-200 px-4 py-2">
         <span className="label-xs">Agent event log</span>
-        <span className="mono text-[10.5px] text-ink-500">{events.length} events</span>
+        <span className="mono text-[10.5px] text-slate-500">{events.length} events</span>
       </header>
       <div className="flex-1 overflow-auto px-4 py-2">
         {events.length === 0 ? (
-          <div className="py-4 text-[11.5px] text-ink-600">No events yet.</div>
+          <div className="py-4 text-[11.5px] text-slate-400">No events yet.</div>
         ) : (
           <ol className="space-y-0.5">
             {events.map((e) => (
               <li key={e.id} className="mono flex items-baseline gap-2 text-[10.5px] leading-relaxed">
-                <span className="w-7 shrink-0 text-right text-ink-700">{e.seq}</span>
+                <span className="w-7 shrink-0 text-right text-slate-300">{e.seq}</span>
                 <span className={clsx('w-[124px] shrink-0 truncate', actorColor(e.actor))}>{e.eventType}</span>
-                <span className="truncate text-ink-500">
+                <span className="truncate text-slate-500">
                   {e.merchantId ? `${e.merchantId} · ` : ''}
                   {e.label || EVENT_LABELS[e.eventType]}
                 </span>
@@ -240,16 +240,16 @@ export function EventLog({ events }: { events: AgentEvent[] }) {
 function actorColor(actor: string): string {
   switch (actor) {
     case 'merchant_agent':
-      return 'text-gold-400'
+      return 'text-gold-700'
     case 'customer_agent':
-      return 'text-brand-300'
+      return 'text-brand-600'
     case 'visa':
-      return 'text-ok-400'
+      return 'text-ok-600'
     case 'trust':
-      return 'text-ink-200'
+      return 'text-slate-800'
     case 'commerce':
-      return 'text-ink-300'
+      return 'text-slate-700'
     default:
-      return 'text-ink-500'
+      return 'text-slate-500'
   }
 }

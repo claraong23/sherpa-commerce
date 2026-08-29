@@ -40,7 +40,7 @@ export function product(
   const { specs: specOverrides, ...rest } = overrides
   return {
     id: 'p-test',
-    merchantId: 'tan-computers',
+    merchantId: 'sherpa-computers',
     sku: 'TEST-SKU',
     brand: 'Acer',
     model: 'Test 16',
@@ -72,8 +72,8 @@ export function makeOffer(
   return {
     offerId: 'of-test',
     requestId: 'req-test',
-    merchantId: 'tan-computers',
-    merchantName: 'Tan Computers',
+    merchantId: 'sherpa-computers',
+    merchantName: 'Sherpa Computers',
     sku: rest.sku ?? 'TEST-SKU',
     product: {
       productId: 'p-test',
@@ -136,7 +136,7 @@ export function intent(
 
 export function profile(overrides: Partial<MerchantProfile> = {}): MerchantProfile {
   return {
-    merchantId: 'tan-computers',
+    merchantId: 'sherpa-computers',
     primaryObjective: 'conversion',
     maxDiscountPct: 10,
     minMarginPct: 5,

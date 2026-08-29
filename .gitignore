@@ -20,6 +20,17 @@ tap-keys.json
 *.pem
 .data/
 
+# Generated imagery.
+#
+# The storefront hero art, the floating objects and the product photography are
+# all rendered assets, not source. Together they are several megabytes of PNG
+# that would churn a binary blob into history every time a render is retouched.
+#
+# NOTE: a fresh clone therefore has no hero art, and the storefront will render
+# broken images until public/ is restored out of band. Keep a copy somewhere
+# durable before relying on this repo alone.
+public/
+
 # Internal planning documents.
 #
 # These hold the full product strategy, demo choreography and the reasoning

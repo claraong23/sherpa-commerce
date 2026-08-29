@@ -31,7 +31,7 @@ export function serverEnv() {
     shopifyStoreDomain: str(e.SHOPIFY_DEMO_STORE_DOMAIN),
     shopifyAdminToken: str(e.SHOPIFY_ADMIN_ACCESS_TOKEN),
     shopifyApiVersion: str(e.SHOPIFY_API_VERSION) ?? '2025-01',
-    shopifyMerchantSlug: str(e.SHOPIFY_MERCHANT_SLUG) ?? 'tan-computers',
+    shopifyMerchantSlug: str(e.SHOPIFY_MERCHANT_SLUG) ?? 'sherpa-computers',
     shopifyApiKey: str(e.SHOPIFY_API_KEY),
 
     visaMode: (str(e.VISA_ACCEPTANCE_MODE) ?? 'mock') as 'mock' | 'sandbox',

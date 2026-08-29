@@ -223,7 +223,7 @@ export function VoiceCall({
 
   return (
     <section className="panel anim-in overflow-hidden">
-      <header className="flex items-center justify-between border-b border-ink-800 px-4 py-2.5">
+      <header className="flex items-center justify-between border-b border-slate-200 px-4 py-2.5">
         <span className="label-xs">AI onboarding call</span>
         <div className="flex items-center gap-2">
           {state === 'live' && (
@@ -232,7 +232,7 @@ export function VoiceCall({
               {mode === 'openai_realtime' ? 'OpenAI Realtime' : 'Recording only'}
             </Badge>
           )}
-          <span className="mono text-[11px] text-ink-400">
+          <span className="mono text-[11px] text-slate-600">
             {mm}:{ss}
           </span>
         </div>
@@ -242,13 +242,13 @@ export function VoiceCall({
         {state === 'idle' && (
           <div className="text-center">
             <Orb active={false} />
-            <p className="mx-auto mt-3 max-w-sm text-[12px] leading-relaxed text-ink-400">
+            <p className="mx-auto mt-3 max-w-sm text-[12px] leading-relaxed text-slate-600">
               {available
                 ? 'The agent will ask only what it still needs. It already has your catalogue.'
                 : 'OpenAI Realtime is not configured here, so the call will record your answers locally and transcribe them into rules afterwards.'}
             </p>
             {questions.length > 0 && (
-              <p className="mt-1.5 text-[10.5px] text-ink-500">{questions.length} questions outstanding</p>
+              <p className="mt-1.5 text-[10.5px] text-slate-500">{questions.length} questions outstanding</p>
             )}
             <div className="mt-4 flex justify-center gap-2">
               <Button onClick={start}>Start call</Button>
@@ -260,15 +260,15 @@ export function VoiceCall({
         )}
 
         {state === 'connecting' && (
-          <div className="flex flex-col items-center py-6 text-[12px] text-ink-400">
-            <Spinner className="mb-2 text-brand-300" />
+          <div className="flex flex-col items-center py-6 text-[12px] text-slate-600">
+            <Spinner className="mb-2 text-brand-600" />
             Connecting audio…
           </div>
         )}
 
         {state === 'error' && (
           <div className="text-center">
-            <p className="text-[12px] leading-relaxed text-bad-400">{reason}</p>
+            <p className="text-[12px] leading-relaxed text-bad-600">{reason}</p>
             <div className="mt-3 flex justify-center gap-2">
               <Button size="sm" variant="secondary" onClick={start}>
                 Retry
@@ -287,24 +287,24 @@ export function VoiceCall({
             </div>
 
             {reason && (
-              <p className="mt-3 rounded-lg border border-warn-500/30 bg-warn-500/[0.07] px-3 py-2 text-[10.5px] leading-relaxed text-warn-500">
+              <p className="mt-3 rounded-lg border border-warn-200 bg-warn-50 px-3 py-2 text-[10.5px] leading-relaxed text-warn-700">
                 {reason}
               </p>
             )}
 
             <div
               ref={logRef}
-              className="mt-3 max-h-56 space-y-2 overflow-auto rounded-lg border border-ink-800 bg-ink-850 p-3"
+              className="mt-3 max-h-56 space-y-2 overflow-auto rounded-lg border border-slate-200 bg-slate-50 p-3"
             >
               {turns.length === 0 ? (
-                <div className="py-3 text-center text-[11.5px] text-ink-600">
+                <div className="py-3 text-center text-[11.5px] text-slate-400">
                   {mode === 'openai_realtime' ? 'Waiting for speech…' : 'Recording. Speak your rules aloud.'}
                 </div>
               ) : (
                 turns.map((t, i) => (
                   <div key={i} className="anim-in">
                     <div className="label-xs">{t.role}</div>
-                    <div className="mt-0.5 text-[12px] leading-relaxed text-ink-100">{t.text}</div>
+                    <div className="mt-0.5 text-[12px] leading-relaxed text-slate-900">{t.text}</div>
                   </div>
                 ))
               )}
@@ -322,7 +322,7 @@ export function VoiceCall({
         )}
 
         {state === 'ended' && (
-          <div className="py-3 text-center text-[12px] text-ink-400">
+          <div className="py-3 text-center text-[12px] text-slate-600">
             Call ended. The rules extracted from it are in the panel below, awaiting your approval.
           </div>
         )}
@@ -337,25 +337,25 @@ function Orb({ active }: { active: boolean }) {
       <div
         className={clsx(
           'absolute inset-0 rounded-full border transition-colors',
-          active ? 'border-brand-400/60' : 'border-ink-700',
+          active ? 'border-brand-300' : 'border-slate-300',
         )}
       />
       <div
         className={clsx(
           'absolute inset-2 rounded-full transition-opacity',
-          active ? 'anim-pulse bg-brand-500/25' : 'bg-ink-800',
+          active ? 'anim-pulse bg-brand-100' : 'bg-slate-100',
         )}
       />
       <div className="absolute inset-0 flex items-center justify-center">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
           <path
             d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"
-            stroke={active ? 'var(--color-brand-300)' : 'var(--color-ink-500)'}
+            stroke={active ? 'var(--color-brand-300)' : 'var(--color-slate-500)'}
             strokeWidth="1.6"
           />
           <path
             d="M19 11a7 7 0 0 1-14 0M12 18v3"
-            stroke={active ? 'var(--color-brand-300)' : 'var(--color-ink-500)'}
+            stroke={active ? 'var(--color-brand-300)' : 'var(--color-slate-500)'}
             strokeWidth="1.6"
             strokeLinecap="round"
           />

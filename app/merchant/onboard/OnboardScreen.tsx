@@ -8,7 +8,7 @@ import type { ChatMessage, SalesRule } from '@core/schemas'
 import type { SandboxState } from '@agents/onboarding-agent'
 import { Workspace } from './Workspace'
 
-const DEMO_URL = 'tan-computers-demo.myshopify.com'
+const DEMO_URL = 'sherpa-computers-demo.myshopify.com'
 
 interface Action {
   id: string
@@ -110,16 +110,16 @@ export function OnboardScreen() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-ink-950">
-      <header className="flex shrink-0 items-center justify-between border-b border-ink-800 bg-ink-900 px-4 py-2.5">
+    <div className="flex h-screen flex-col overflow-hidden bg-slate-25">
+      <header className="flex shrink-0 items-center justify-between border-b border-slate-200 bg-white px-4 py-2.5">
         <div className="flex items-center gap-3">
-          <Link href="/" className="text-[12px] font-semibold text-ink-300 hover:text-white">
+          <Link href="/" className="text-[12px] font-semibold text-slate-700 hover:text-slate-900">
             ← Agentic commerce
           </Link>
           <span className="label-xs">Merchant onboarding</span>
         </div>
         {sandbox?.agent.created && (
-          <Link href="/customer" className="text-[11.5px] text-brand-300 hover:text-brand-400">
+          <Link href="/customer" className="text-[11.5px] text-brand-600 hover:text-brand-600">
             Watch this agent compete →
           </Link>
         )}
@@ -127,7 +127,7 @@ export function OnboardScreen() {
 
       <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[2fr_3fr]">
         {/* ── Conversation ── */}
-        <div className="flex min-h-0 flex-col border-b border-ink-800 bg-ink-900 lg:border-b-0 lg:border-r">
+        <div className="flex min-h-0 flex-col border-b border-slate-200 bg-white lg:border-b-0 lg:border-r">
           <div ref={logRef} className="min-h-0 flex-1 space-y-3 overflow-auto px-4 py-4">
             {messages.map((m) => (
               <div
@@ -138,8 +138,8 @@ export function OnboardScreen() {
                   className={clsx(
                     'max-w-[90%] rounded-xl px-3.5 py-2.5 text-[13px] leading-relaxed',
                     m.role === 'user'
-                      ? 'rounded-br-sm bg-brand-500 text-white'
-                      : 'rounded-bl-sm border border-ink-700 bg-ink-850 text-ink-100',
+                      ? 'rounded-br-sm bg-brand-400 text-slate-900'
+                      : 'rounded-bl-sm border border-slate-300 bg-slate-50 text-slate-900',
                   )}
                 >
                   {m.text}
@@ -148,8 +148,8 @@ export function OnboardScreen() {
             ))}
 
             {busy && (
-              <div className="flex items-center gap-2 text-[11.5px] text-ink-500">
-                <Spinner className="text-brand-300" />
+              <div className="flex items-center gap-2 text-[11.5px] text-slate-500">
+                <Spinner className="text-brand-600" />
                 Working…
               </div>
             )}
@@ -159,7 +159,7 @@ export function OnboardScreen() {
                 onClick={() => {
                   setInput(DEMO_URL)
                 }}
-                className="focus-ring w-full rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-left text-[11.5px] text-ink-400 hover:border-brand-400/50 hover:text-ink-100"
+                className="focus-ring w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-left text-[11.5px] text-slate-600 hover:border-brand-300 hover:text-slate-900"
               >
                 Use the demo store · <span className="mono">{DEMO_URL}</span>
               </button>
@@ -182,7 +182,7 @@ export function OnboardScreen() {
             )}
           </div>
 
-          <form onSubmit={onSubmit} className="border-t border-ink-800 p-3">
+          <form onSubmit={onSubmit} className="border-t border-slate-200 p-3">
             <div className="flex gap-2">
               <input
                 value={input}
@@ -193,7 +193,7 @@ export function OnboardScreen() {
                     : 'Paste your store URL'
                 }
                 disabled={busy || !sessionId}
-                className="focus-ring min-w-0 flex-1 rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-[13px] text-ink-100 placeholder:text-ink-600 disabled:opacity-50"
+                className="focus-ring min-w-0 flex-1 rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-400 disabled:opacity-50"
               />
               <Button type="submit" disabled={busy || !input.trim()}>
                 Send
@@ -231,7 +231,7 @@ export function OnboardScreen() {
               }
             />
           ) : (
-            <div className="grid-bg flex h-full items-center justify-center text-[12px] text-ink-600">
+            <div className="grid-bg flex h-full items-center justify-center text-[12px] text-slate-400">
               <Spinner />
             </div>
           )}

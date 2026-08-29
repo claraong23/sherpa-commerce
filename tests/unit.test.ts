@@ -243,7 +243,7 @@ describe('offer validator', () => {
 
   it('rejects a product belonging to another merchant', () => {
     const p = product({ merchantId: 'someone-else' })
-    const offer = makeOffer({ merchantId: 'tan-computers', sku: p.sku, listPrice: p.price, price: p.price })
+    const offer = makeOffer({ merchantId: 'sherpa-computers', sku: p.sku, listPrice: p.price, price: p.price })
     const r = validateOffer({ ...base, offer, product: p })
     expect(r.issues.map((i) => i.code)).toContain('PRODUCT_NOT_OWNED_BY_MERCHANT')
   })
@@ -384,7 +384,7 @@ describe('offer canonicalization and hash', () => {
   })
 
   it('changes when the merchant changes', () => {
-    const a = canonicalizeOffer(makeOffer({ merchantId: 'tan-computers' })).hash
+    const a = canonicalizeOffer(makeOffer({ merchantId: 'sherpa-computers' })).hash
     const b = canonicalizeOffer(makeOffer({ merchantId: 'bizgram' })).hash
     expect(a).not.toBe(b)
   })
@@ -724,7 +724,7 @@ describe('platform detector', () => {
   const headers = (h: Record<string, string> = {}) => new Headers(h)
 
   it('normalizes URLs', () => {
-    expect(normalizeUrl('tan-computers-demo.myshopify.com')).toBe('https://tan-computers-demo.myshopify.com')
+    expect(normalizeUrl('sherpa-computers-demo.myshopify.com')).toBe('https://sherpa-computers-demo.myshopify.com')
     expect(normalizeUrl('https://example.com/')).toBe('https://example.com')
     expect(normalizeUrl('not a url at all')).toBe('')
   })
@@ -733,7 +733,7 @@ describe('platform detector', () => {
     const r = scoreFingerprints({
       html: '<script src="https://cdn.shopify.com/s/files/x.js"></script><script>window.Shopify={};</script>',
       headers: headers({ 'x-shopid': '12345' }),
-      url: 'https://tan-computers-demo.myshopify.com',
+      url: 'https://sherpa-computers-demo.myshopify.com',
     })
     expect(r.commercePlatform).toBe('shopify')
     expect(r.confidence).toBeGreaterThan(0.7)

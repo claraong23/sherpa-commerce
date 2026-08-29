@@ -60,28 +60,28 @@ function MerchantCard({
     <article
       className={clsx(
         'panel relative flex flex-col overflow-hidden transition-colors duration-300',
-        selected && 'border-brand-400/70 bg-brand-500/[0.06]',
+        selected && 'border-brand-400 bg-brand-50',
         eliminated && 'opacity-60',
-        failedSignature && 'border-bad-500/50',
+        failedSignature && 'border-bad-200',
       )}
     >
       <div
         className="h-[3px] w-full shrink-0"
-        style={{ background: `linear-gradient(90deg, hsl(${hue} 62% 52%), hsl(${(hue + 45) % 360} 55% 40%))` }}
+        style={{ background: `linear-gradient(90deg, hsl(${hue} 68% 58%), hsl(${(hue + 45) % 360} 60% 50%))` }}
         aria-hidden
       />
 
       <header className="flex items-start justify-between gap-2 px-3.5 pt-3">
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
-            <h3 className="truncate text-[14px] font-semibold text-white">{merchant.name}</h3>
+            <h3 className="truncate text-[14px] font-semibold text-slate-900">{merchant.name}</h3>
             {v?.rank === 1 && <Badge tone="gold">#1</Badge>}
           </div>
-          <div className="mt-0.5 text-[10.5px] text-ink-500">{SIZE_LABEL[merchant.sizeType]}</div>
+          <div className="mt-0.5 text-[10.5px] text-slate-500">{SIZE_LABEL[merchant.sizeType]}</div>
         </div>
         <div className="text-right">
           <div className="label-xs">Objective</div>
-          <div className="text-[11px] font-medium text-ink-200">
+          <div className="text-[11px] font-medium text-slate-800">
             {objective ? (OBJECTIVE_LABEL[objective] ?? objective) : '—'}
           </div>
         </div>
@@ -106,16 +106,16 @@ function MerchantCard({
         />
       </div>
 
-      <div className="mt-3 flex-1 border-t border-ink-800 px-3.5 py-3">
+      <div className="mt-3 flex-1 border-t border-slate-200 px-3.5 py-3">
         {v?.offer?.title ? (
           <div className="anim-in">
-            <div className="text-[13px] leading-snug font-medium text-white">{v.offer.title}</div>
+            <div className="text-[13px] leading-snug font-medium text-slate-900">{v.offer.title}</div>
             <div className="mt-1.5 flex items-baseline gap-2">
-              <span className="mono text-[17px] font-semibold text-white">
+              <span className="mono text-[17px] font-semibold text-slate-900">
                 {v.offer.currency ?? 'SGD'} {Math.round(v.offer.price ?? 0).toLocaleString('en-SG')}
               </span>
               {(v.offer.discountPct ?? 0) > 0.1 && (
-                <span className="mono text-[10.5px] text-ok-400">−{v.offer.discountPct?.toFixed(1)}%</span>
+                <span className="mono text-[10.5px] text-ok-600">−{v.offer.discountPct?.toFixed(1)}%</span>
               )}
               {v.countered && <Badge tone="brand">countered</Badge>}
             </div>
@@ -128,38 +128,38 @@ function MerchantCard({
             </div>
           </div>
         ) : v?.noOffer ? (
-          <div className="text-[11.5px] leading-relaxed text-ink-500">
+          <div className="text-[11.5px] leading-relaxed text-slate-500">
             No valid offer. {v.noOfferReason}
           </div>
         ) : (
-          <div className="flex h-[76px] items-center text-[11.5px] text-ink-600">
+          <div className="flex h-[76px] items-center text-[11.5px] text-slate-400">
             {v?.requestSigned ? 'Constructing offer…' : 'Awaiting request'}
           </div>
         )}
       </div>
 
-      <footer className="flex items-center justify-between gap-2 border-t border-ink-800 bg-ink-900/60 px-3.5 py-2">
+      <footer className="flex items-center justify-between gap-2 border-t border-slate-200 bg-slate-50/60 px-3.5 py-2">
         {v?.sealed ? (
-          <span className="mono flex items-center gap-1.5 text-[10px] text-ink-400">
+          <span className="mono flex items-center gap-1.5 text-[10px] text-slate-600">
             <StatusDot tone="ok" />
-            SEALED {v.hash && <span className="text-ink-600">{v.hash}…</span>}
+            SEALED {v.hash && <span className="text-slate-400">{v.hash}…</span>}
           </span>
         ) : (
-          <span className="mono flex items-center gap-1.5 text-[10px] text-ink-600">
+          <span className="mono flex items-center gap-1.5 text-[10px] text-slate-400">
             <StatusDot tone={v?.offerCreated ? 'pending' : 'idle'} pulse={v?.offerCreated && !v?.sealed} />
             {v?.offerCreated ? 'SEALING' : 'IDLE'}
           </span>
         )}
 
         {v?.scorePct !== null && v?.scorePct !== undefined ? (
-          <span className="mono text-[11px] font-semibold text-white">{v.scorePct}</span>
+          <span className="mono text-[11px] font-semibold text-slate-900">{v.scorePct}</span>
         ) : eliminated ? (
           <Badge tone="bad">filtered</Badge>
         ) : null}
       </footer>
 
       {eliminated && v?.filterViolations.length ? (
-        <div className="border-t border-bad-500/25 bg-bad-500/[0.07] px-3.5 py-2 text-[10.5px] leading-relaxed text-bad-400">
+        <div className="border-t border-bad-200 bg-bad-50 px-3.5 py-2 text-[10.5px] leading-relaxed text-bad-600">
           {v.filterViolations.map((x) => x.detail).join(' · ')}
         </div>
       ) : null}
@@ -180,11 +180,11 @@ function Step({
     <div className="flex items-center justify-between gap-2 text-[11.5px]">
       <span className="flex items-center gap-1.5">
         <StatusDot tone={state} pulse={state === 'pending'} />
-        <span className={state === 'idle' ? 'text-ink-600' : state === 'fail' ? 'text-bad-400' : 'text-ink-200'}>
+        <span className={state === 'idle' ? 'text-slate-400' : state === 'fail' ? 'text-bad-600' : 'text-slate-800'}>
           {label}
         </span>
       </span>
-      {detail && <span className="mono truncate text-[10px] text-ink-500">{detail}</span>}
+      {detail && <span className="mono truncate text-[10px] text-slate-500">{detail}</span>}
     </div>
   )
 }

@@ -99,7 +99,7 @@ const FINGERPRINTS: Fingerprint[] = [
 
 /** Domains we ship as demo fixtures so onboarding works offline. */
 const DEMO_FIXTURES: Record<string, Omit<DetectionResult, 'url' | 'fetchedAt'>> = {
-  'tan-computers-demo.myshopify.com': {
+  'sherpa-computers-demo.myshopify.com': {
     websitePlatform: 'shopify',
     commercePlatform: 'shopify',
     confidence: 0.99,

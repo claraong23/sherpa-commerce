@@ -33,17 +33,17 @@ export default async function MerchantDocs({ params }: { params: Promise<{ merch
   const shopifyConnector = merchant.commercePlatform === 'shopify'
 
   return (
-    <div className="min-h-screen bg-ink-950">
-      <header className="border-b border-ink-800 bg-ink-900">
+    <div className="min-h-screen bg-slate-25">
+      <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-2 px-6 py-3">
-          <Link href="/" className="text-[12px] font-semibold text-ink-300 hover:text-white">
+          <Link href="/" className="text-[12px] font-semibold text-slate-700 hover:text-slate-900">
             ← Agentic commerce
           </Link>
           <div className="flex gap-4 text-[11.5px]">
-            <Link href={`/storefront/${merchant.id}`} className="text-brand-300 hover:underline">
+            <Link href={`/storefront/${merchant.id}`} className="text-brand-600 hover:underline">
               Storefront →
             </Link>
-            <Link href="/customer" className="text-brand-300 hover:underline">
+            <Link href="/customer" className="text-brand-600 hover:underline">
               Agent network →
             </Link>
           </div>
@@ -52,19 +52,19 @@ export default async function MerchantDocs({ params }: { params: Promise<{ merch
 
       <main className="mx-auto max-w-4xl px-6 py-10">
         <div className="label-xs mb-2">Merchant integration</div>
-        <h1 className="text-[30px] font-semibold tracking-tight text-white">{merchant.name}</h1>
-        <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-ink-400">
+        <h1 className="text-[30px] font-semibold tracking-tight text-slate-900">{merchant.name}</h1>
+        <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-slate-600">
           Generated from this merchant’s live profile. Every identifier and example below is real for this
           deployment.
         </p>
 
         {shopifyConnector && (
-          <div className="panel mt-6 border-ok-500/30 bg-ok-500/[0.05] p-4">
+          <div className="panel mt-6 border-ok-200 bg-ok-50 p-4">
             <div className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-ok-500" aria-hidden />
-              <span className="text-[13px] font-semibold text-white">No-code connector active</span>
+              <span className="text-[13px] font-semibold text-slate-900">No-code connector active</span>
             </div>
-            <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-300">
+            <p className="mt-1.5 text-[12.5px] leading-relaxed text-slate-700">
               This merchant runs on Shopify, so catalogue sync, inventory and order creation flow through
               the installed app — nothing on this page is required. These endpoints are the advanced path
               for custom integrations, headless storefronts, or connecting a second commerce system.
@@ -114,7 +114,7 @@ export default async function MerchantDocs({ params }: { params: Promise<{ merch
             <KV k="Bundle allowance" v={`${merchant.currency} ${profile.bundleAllowance}`} />
             <KV k="Standard warranty" v={`${profile.standardWarrantyYears} years`} />
             <KV k="Approved sales rules" v={String(profile.salesRules.filter((r) => r.approved).length)} />
-            <p className="mt-3 text-[11.5px] leading-relaxed text-ink-500">
+            <p className="mt-3 text-[11.5px] leading-relaxed text-slate-500">
               These values are never returned by a public endpoint and are never sent to a browser. They
               are applied inside the offer validator before an offer can be sealed.
             </p>
@@ -229,9 +229,9 @@ export default async function MerchantDocs({ params }: { params: Promise<{ merch
         <Section title="Storefront widget">
           {shopifyConnector ? (
             <>
-              <p className="text-[12.5px] leading-relaxed text-ink-300">
+              <p className="text-[12.5px] leading-relaxed text-slate-700">
                 On Shopify the storefront agent ships as a Theme App Extension app embed block
-                (<code className="mono text-ink-400">extensions/storefront-chat</code>). Activate it in the
+                (<code className="mono text-slate-600">extensions/storefront-chat</code>). Activate it in the
                 theme editor under App embeds — no theme code changes and no ScriptTag injection.
               </p>
               <CodeBlock
@@ -255,38 +255,38 @@ export default async function MerchantDocs({ params }: { params: Promise<{ merch
 
         {/* ── Security ── */}
         <Section title="Auth and security">
-          <ul className="space-y-2 text-[12.5px] leading-relaxed text-ink-300">
+          <ul className="space-y-2 text-[12.5px] leading-relaxed text-slate-700">
             <li>
-              <strong className="text-white">Public identifiers.</strong> The agent id and merchant id are
+              <strong className="text-slate-900">Public identifiers.</strong> The agent id and merchant id are
               browser-safe and are the only values the widget receives.
             </li>
             <li>
-              <strong className="text-white">Server-side secrets.</strong> Commercial rules, cost prices,
+              <strong className="text-slate-900">Server-side secrets.</strong> Commercial rules, cost prices,
               margins, Shopify tokens, Visa credentials and the agent signing key never leave the server and
               never enter a model prompt.
             </li>
             <li>
-              <strong className="text-white">Agent request signing.</strong> Customer-agent requests carry an
+              <strong className="text-slate-900">Agent request signing.</strong> Customer-agent requests carry an
               Ed25519 signature over an RFC 9421-style signature base with a nonce and timestamp; the merchant
               agent verifies before constructing an offer. This is a TAP-style implementation against Visa’s
               public protocol model — the demo key is locally generated and is not registered with Visa.
             </li>
             <li>
-              <strong className="text-white">Merchant isolation.</strong> Storefront sessions are constructed
+              <strong className="text-slate-900">Merchant isolation.</strong> Storefront sessions are constructed
               with one merchant id and the tools close over it. No cross-merchant read path exists.
             </li>
             <li>
-              <strong className="text-white">Offer integrity.</strong> A sealed offer is canonicalized and
+              <strong className="text-slate-900">Offer integrity.</strong> A sealed offer is canonicalized and
               hashed with SHA-256. Authorization is refused if the hash changes.
             </li>
-            <li className="text-ink-400">
+            <li className="text-slate-600">
               This prototype has no merchant authentication. A production deployment would issue per-merchant
               API keys with HMAC request signing and scope every endpoint to the authenticated merchant.
             </li>
           </ul>
         </Section>
 
-        <footer className="mt-10 border-t border-ink-800 pt-5 text-[11px] leading-relaxed text-ink-600">
+        <footer className="mt-10 border-t border-slate-200 pt-5 text-[11px] leading-relaxed text-slate-400">
           Generated {new Date().toISOString().slice(0, 10)} for {merchant.name} ({merchant.agentId}).
           Prototype documentation — product and pricing data is fabricated for the demo.
         </footer>
@@ -300,7 +300,7 @@ export default async function MerchantDocs({ params }: { params: Promise<{ merch
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mt-8">
-      <h2 className="mb-3 border-b border-ink-800 pb-2 text-[15px] font-semibold text-white">{title}</h2>
+      <h2 className="mb-3 border-b border-slate-200 pb-2 text-[15px] font-semibold text-slate-900">{title}</h2>
       <div className="space-y-1">{children}</div>
     </section>
   )
@@ -308,23 +308,23 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function KV({ k, v, mono }: { k: string; v: string; mono?: boolean }) {
   return (
-    <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-ink-800/60 py-1.5">
-      <span className="text-[12.5px] text-ink-400">{k}</span>
-      <span className={`text-right text-[12.5px] text-ink-100 ${mono ? 'mono' : ''}`}>{v}</span>
+    <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-200/60 py-1.5">
+      <span className="text-[12.5px] text-slate-600">{k}</span>
+      <span className={`text-right text-[12.5px] text-slate-900 ${mono ? 'mono' : ''}`}>{v}</span>
     </div>
   )
 }
 
 function Endpoint({ method, path, desc }: { method: string; path: string; desc: string }) {
   const color =
-    method === 'GET' ? 'text-ok-400 border-ok-500/35 bg-ok-500/10' : 'text-brand-300 border-brand-400/35 bg-brand-500/10'
+    method === 'GET' ? 'text-ok-600 border-ok-200 bg-ok-50' : 'text-brand-600 border-brand-200 bg-brand-50'
   return (
-    <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1 border-b border-ink-800/60 py-2">
+    <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1 border-b border-slate-200/60 py-2">
       <span className={`mono shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-semibold ${color}`}>
         {method}
       </span>
-      <code className="mono text-[12px] text-ink-100">{path}</code>
-      <p className="w-full text-[11.5px] leading-relaxed text-ink-500">{desc}</p>
+      <code className="mono text-[12px] text-slate-900">{path}</code>
+      <p className="w-full text-[11.5px] leading-relaxed text-slate-500">{desc}</p>
     </div>
   )
 }
@@ -333,7 +333,7 @@ function CodeBlock({ label, code }: { label: string; code: string }) {
   return (
     <div className="mt-3">
       <div className="label-xs mb-1.5">{label}</div>
-      <pre className="mono overflow-x-auto rounded-lg border border-ink-700 bg-ink-900 p-3 text-[11px] leading-relaxed text-ink-300">
+      <pre className="mono overflow-x-auto rounded-lg border border-slate-300 bg-white p-3 text-[11px] leading-relaxed text-slate-700">
         {code}
       </pre>
     </div>

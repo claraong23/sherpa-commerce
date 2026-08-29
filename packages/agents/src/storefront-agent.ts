@@ -257,7 +257,7 @@ export async function storefrontChat(args: {
   return { text: bits.join(' '), products, scope, refusedCrossMerchant: false }
 }
 
-/** "Tan Computers" -> "Tan Computers'", "Bizgram" -> "Bizgram's". */
+/** "Sherpa Computers" -> "Sherpa Computers'", "Bizgram" -> "Bizgram's". */
 function possessive(name: string): string {
   return /s$/i.test(name) ? `${name}'` : `${name}'s`
 }
