@@ -1,0 +1,31 @@
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+.env
+.env.local
+.env*.local
+.env.production
+
+.vercel
+.DS_Store
+Thumbs.db
+
+# Never commit generated keys
+tap-keys.json
+*.pem
+.data/
+
+# Internal planning documents.
+#
+# These hold the full product strategy, demo choreography and the reasoning
+# about what to claim versus not claim to judges. They stay on disk for the
+# team and out of the published repository. README.md and HANDOFF.md carry
+# everything a reader of this repo actually needs.
+VISA_HACKATHON_FINAL_CONTEXT.md
+VISA_HACKATHON_SETUP.md
+VISA_HACKATHON_BUILD_PROMPT_OPUS.md

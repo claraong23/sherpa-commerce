@@ -1,0 +1,37 @@
+# Shopify app configuration.
+#
+# `client_id` is filled in by `shopify app config link` against your Partner /
+# Dev Dashboard app. It is a public identifier, not a secret — the client secret
+# lives in .env.local as SHOPIFY_API_SECRET and is never committed.
+#
+# Managed installation: scopes are declared here and granted at install time, so
+# the app does not run its own OAuth screen.
+
+name = "agentic-commerce-storefront-agent"
+handle = "agentic-commerce"
+client_id = ""
+application_url = "https://your-deployment.vercel.app"
+embedded = true
+
+[access_scopes]
+# Only what the implementation actually calls:
+#   read_products    — catalogue sync (products, variants, unit cost)
+#   read_inventory   — live inventory re-check before offer lock and order
+#   write_orders     — orderCreate after a successful Visa authorization
+scopes = "read_products,read_inventory,write_orders"
+
+[auth]
+redirect_urls = [
+  "https://your-deployment.vercel.app/api/shopify/callback",
+  "http://localhost:3000/api/shopify/callback"
+]
+
+[webhooks]
+api_version = "2025-01"
+
+[build]
+automatically_update_urls_on_dev = true
+include_config_on_deploy = true
+
+[pos]
+embedded = false

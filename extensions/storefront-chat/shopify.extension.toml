@@ -1,0 +1,9 @@
+name = "Storefront agent"
+type = "theme"
+
+# Theme App Extension.
+#
+# The storefront agent ships as an App Embed Block, which is the correct Shopify
+# primitive for floating overlay UI. Legacy ScriptTag injection is deliberately
+# not used: app embeds are merchant-controllable from the theme editor, survive
+# theme updates, and do not require write access to theme code.

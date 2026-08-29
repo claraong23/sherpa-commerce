@@ -1,0 +1,68 @@
+{% comment %}
+  Storefront agent — App Embed Block.
+
+  Renders nothing itself. It emits a single <script> tag pointing at the
+  platform's widget loader, plus the two PUBLIC identifiers the widget needs.
+
+  Nothing secret is present in this file or in the rendered page:
+    - merchant_id and agent_id are public identifiers, safe in a page source
+    - the catalogue is only ever read server-side, scoped to this merchant
+    - no API key, no Visa credential, no commercial rule reaches the browser
+
+  Activate under Online Store → Themes → Customize → App embeds.
+{% endcomment %}
+
+{%- liquid
+  assign app_url = block.settings.app_url | default: 'https://your-deployment.vercel.app' | strip
+  assign merchant_id = block.settings.merchant_id | strip
+  assign agent_id = block.settings.agent_id | strip
+-%}
+
+{%- if merchant_id != blank -%}
+  <script
+    src="{{ app_url }}/widget.js"
+    data-merchant-id="{{ merchant_id | escape }}"
+    data-agent-id="{{ agent_id | escape }}"
+    data-accent="{{ block.settings.accent_color | default: '#1a1f71' }}"
+    defer
+  ></script>
+{%- else -%}
+  {%- if request.design_mode -%}
+    <script>
+      console.warn('[storefront-agent] Set the Merchant ID in the app embed settings to activate the assistant.');
+    </script>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Storefront agent",
+  "target": "body",
+  "settings": [
+    {
+      "type": "text",
+      "id": "merchant_id",
+      "label": "Merchant ID",
+      "info": "Shown at the end of onboarding, e.g. tan-computers. Required."
+    },
+    {
+      "type": "text",
+      "id": "agent_id",
+      "label": "Agent ID",
+      "info": "Public agent identifier, e.g. merchant_tan_computers_8H3K2."
+    },
+    {
+      "type": "url",
+      "id": "app_url",
+      "label": "Platform URL",
+      "info": "Base URL of your agentic commerce deployment."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour",
+      "default": "#1a1f71"
+    }
+  ]
+}
+{% endschema %}
