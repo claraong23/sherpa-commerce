@@ -49,7 +49,7 @@ export function PaymentPanel({ view, events }: { view: PaymentView; events: Agen
 
   return (
     <div className="panel overflow-hidden">
-      <header className="flex flex-wrap items-center justify-between gap-2 border-b border-ink-800 px-4 py-2.5">
+      <header className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 px-4 py-2.5">
         <span className="label-xs">Offer lock · Payment Instruction · Visa authorization</span>
         {view.visa && (
           <Badge tone={view.visa.mode === 'sandbox' ? 'ok' : 'warn'}>
@@ -60,19 +60,19 @@ export function PaymentPanel({ view, events }: { view: PaymentView; events: Agen
       </header>
 
       {nothingYet ? (
-        <div className="px-4 py-6 text-[12px] text-ink-600">
+        <div className="px-4 py-6 text-[12px] text-slate-400">
           Nothing locked yet. Choosing an offer freezes it, hashes it, and creates a Payment Instruction
           scoped to that one merchant and amount.
         </div>
       ) : (
-        <div className="grid gap-px bg-ink-800 md:grid-cols-3">
+        <div className="grid gap-px bg-slate-100 md:grid-cols-3">
           {/* Lock */}
-          <div className="bg-ink-900 p-4">
+          <div className="bg-white p-4">
             <div className="label-xs mb-2.5">1 · Offer lock</div>
             {lockFailed ? (
               <div className="space-y-1.5">
                 <Check done tone="fail" label={String(lockFailed.payload.code ?? 'lock failed')} />
-                <p className="text-[11px] leading-relaxed text-bad-400">
+                <p className="text-[11px] leading-relaxed text-bad-600">
                   {String(lockFailed.payload.detail ?? '')}
                 </p>
               </div>
@@ -81,17 +81,17 @@ export function PaymentPanel({ view, events }: { view: PaymentView; events: Agen
                 <Check done label="Inventory re-checked" />
                 <Check done label="Offer unchanged" />
                 <Check done label="Canonicalised and hashed" />
-                <div className="mono mt-2 truncate rounded border border-ink-700 bg-ink-850 px-2 py-1 text-[10px] text-ink-400">
+                <div className="mono mt-2 truncate rounded border border-slate-300 bg-slate-50 px-2 py-1 text-[10px] text-slate-600">
                   sha-256 {String(lockEvent.payload.hash ?? '')}…
                 </div>
               </div>
             ) : (
-              <div className="text-[11.5px] text-ink-600">Locking…</div>
+              <div className="text-[11.5px] text-slate-400">Locking…</div>
             )}
           </div>
 
           {/* Payment Instruction */}
-          <div className="bg-ink-900 p-4">
+          <div className="bg-white p-4">
             <div className="label-xs mb-2.5">2 · Payment Instruction</div>
             {view.instructionId ? (
               <div className="space-y-1">
@@ -124,12 +124,12 @@ export function PaymentPanel({ view, events }: { view: PaymentView; events: Agen
                 </div>
               </div>
             ) : (
-              <div className="text-[11.5px] text-ink-600">Not created yet.</div>
+              <div className="text-[11.5px] text-slate-400">Not created yet.</div>
             )}
           </div>
 
           {/* Authorization */}
-          <div className="bg-ink-900 p-4">
+          <div className="bg-white p-4">
             <div className="label-xs mb-2.5">3 · Visa Acceptance</div>
 
             {view.checks.length > 0 && (
@@ -139,16 +139,16 @@ export function PaymentPanel({ view, events }: { view: PaymentView; events: Agen
                     <span className="mt-1">
                       <StatusDot tone={c.passed ? 'ok' : 'fail'} />
                     </span>
-                    <span className={c.passed ? 'text-ink-300' : 'text-bad-400'}>{c.control}</span>
+                    <span className={c.passed ? 'text-slate-700' : 'text-bad-600'}>{c.control}</span>
                   </div>
                 ))}
               </div>
             )}
 
             {view.failure ? (
-              <div className="rounded-md border border-bad-500/35 bg-bad-500/10 p-2.5">
-                <div className="mono text-[10.5px] font-semibold text-bad-400">{view.failure.code}</div>
-                <p className="mt-1 text-[11px] leading-relaxed text-ink-300">{view.failure.message}</p>
+              <div className="rounded-md border border-bad-200 bg-bad-50 p-2.5">
+                <div className="mono text-[10.5px] font-semibold text-bad-600">{view.failure.code}</div>
+                <p className="mt-1 text-[11px] leading-relaxed text-slate-700">{view.failure.message}</p>
               </div>
             ) : approved && view.visa ? (
               <div className="space-y-1">
@@ -161,25 +161,25 @@ export function PaymentPanel({ view, events }: { view: PaymentView; events: Agen
                 <Row label="Latency" value={`${view.visa.latencyMs} ms`} />
               </div>
             ) : authorizing && !declined ? (
-              <div className="flex items-center gap-2 text-[12px] text-gold-400">
+              <div className="flex items-center gap-2 text-[12px] text-gold-700">
                 <StatusDot tone="pending" pulse />
                 Authorizing…
               </div>
             ) : (
-              <div className="text-[11.5px] text-ink-600">Awaiting confirmation.</div>
+              <div className="text-[11.5px] text-slate-400">Awaiting confirmation.</div>
             )}
           </div>
         </div>
       )}
 
       {view.order && (
-        <div className="anim-in border-t border-ok-500/25 bg-ok-500/[0.06] px-4 py-3">
+        <div className="anim-in border-t border-ok-200 bg-ok-50 px-4 py-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <div className="text-[13px] font-medium text-white">
+              <div className="text-[13px] font-medium text-slate-900">
                 Order created · {view.order.productTitle}
               </div>
-              <div className="mono mt-0.5 text-[10.5px] text-ink-400">
+              <div className="mono mt-0.5 text-[10.5px] text-slate-600">
                 {view.order.id} · {view.order.sku} · {view.order.currency}{' '}
                 {view.order.amount.toLocaleString('en-SG')}
               </div>
@@ -192,7 +192,7 @@ export function PaymentPanel({ view, events }: { view: PaymentView; events: Agen
       )}
 
       {view.visa && (
-        <div className="border-t border-ink-800 px-4 py-2 text-[10.5px] leading-relaxed text-ink-500">
+        <div className="border-t border-slate-200 px-4 py-2 text-[10.5px] leading-relaxed text-slate-500">
           {view.visa.honesty}
         </div>
       )}
@@ -203,8 +203,8 @@ export function PaymentPanel({ view, events }: { view: PaymentView; events: Agen
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-2 text-[11px]">
-      <span className="text-ink-500">{label}</span>
-      <span className={clsx('mono truncate text-right text-ink-200')}>{value}</span>
+      <span className="text-slate-500">{label}</span>
+      <span className={clsx('mono truncate text-right text-slate-800')}>{value}</span>
     </div>
   )
 }

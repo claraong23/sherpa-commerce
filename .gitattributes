@@ -1,0 +1,18 @@
+# Line endings are decided here, not by each machine's core.autocrlf.
+#
+# Without this, a Windows clone checks out CRLF and a macOS or Linux clone
+# checks out LF, so the same commit produces different files depending on who
+# cloned it. Pinning both sides to LF keeps the working copy identical
+# everywhere and stops Git's "LF will be replaced by CRLF" notices.
+* text=auto eol=lf
+
+# Rendered assets are binary. Never run line-ending conversion over them.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.mp4 binary
+*.woff binary
+*.woff2 binary

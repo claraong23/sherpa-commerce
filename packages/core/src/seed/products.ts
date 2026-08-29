@@ -14,19 +14,62 @@ import type { Product } from '../schemas'
 
 type Seed = Omit<Product, 'imageUrl' | 'source' | 'currency'> & { imageUrl?: string }
 
+/**
+ * Real product photography, served from `public/products/`.
+ *
+ * Anything not listed here falls back to the generated placeholder at
+ * `/product-image/<sku>.svg`, so the catalogue never renders a broken image.
+ * To add a photo: drop the file in `public/products/` and add one line.
+ */
+const PRODUCT_IMAGES: Record<string, string> = {
+  'SHP-TUF-A15': '/products/sherpa-tuf-a15.webp',
+  'SHP-LOQ-15': '/products/sherpa-loq-15.webp',
+  'SHP-VIVO-16': '/products/sherpa-vivo-16.jpg',
+  'SHP-NITRO-V16': '/products/sherpa-nitro-v16.jpg',
+}
+
+/**
+ * Storefront hero artwork, keyed by the SKU it is featured alongside.
+ *
+ * These are stylised brand illustrations, not photographs of the named unit: a
+ * generic laptop wrapped in a liquid ribbon, rendered once per merchant hue
+ * (220 / 178 / 340) so the three storefronts read as three different shops
+ * built on one system. The catalogue tiles below carry the real product
+ * imagery; this slot carries the mood.
+ *
+ * Illustrations rather than product renders is a deliberate call. The
+ * catalogue names real hardware, and generating photorealistic shots of real
+ * branded machines would mean shipping synthetic photographs of another
+ * manufacturer's product. An obvious illustration cannot be mistaken for one.
+ *
+ * Transparent background is required: the hero sits on the page's own coloured
+ * wash and on a WebGL ribbon, so a baked background would show as a box. A
+ * merchant with no entry here still gets a hero, using the shared object
+ * render as its subject. See the storefront page.
+ */
+export const HERO_IMAGES: Record<string, string> = {
+  'SHP-TUF-A15': '/products/hero-sherpa.png',
+  'BIZ-ZEPH-G14': '/products/hero-bizgram.png',
+  'CHA-LEGION-PRO-5': '/products/hero-challenger.png',
+}
+
+export function heroImageForSku(sku: string): string | null {
+  return HERO_IMAGES[sku] ?? null
+}
+
 const p = (s: Seed): Product => ({
   currency: 'SGD',
   source: 'seed',
-  imageUrl: `/product-image/${s.sku}.svg`,
+  imageUrl: PRODUCT_IMAGES[s.sku] ?? `/product-image/${s.sku}.svg`,
   ...s,
 })
 
 export const SEED_PRODUCTS: Product[] = [
-  /* ───────────────  Tan Computers — SME, inventory turnover  ─────────────── */
+  /* ───────────────  Sherpa Computers — SME, inventory turnover  ─────────────── */
   p({
-    id: 'tan-tuf-a15',
-    merchantId: 'tan-computers',
-    sku: 'TAN-TUF-A15',
+    id: 'sherpa-tuf-a15',
+    merchantId: 'sherpa-computers',
+    sku: 'SHP-TUF-A15',
     brand: 'ASUS',
     model: 'TUF Gaming A15',
     title: 'ASUS TUF Gaming A15 (Ryzen 7 / RTX 4060)',
@@ -54,9 +97,9 @@ export const SEED_PRODUCTS: Product[] = [
     condition: 'new',
   }),
   p({
-    id: 'tan-loq-15',
-    merchantId: 'tan-computers',
-    sku: 'TAN-LOQ-15',
+    id: 'sherpa-loq-15',
+    merchantId: 'sherpa-computers',
+    sku: 'SHP-LOQ-15',
     brand: 'Lenovo',
     model: 'LOQ 15',
     title: 'Lenovo LOQ 15 (Core i5 / RTX 4050)',
@@ -83,9 +126,9 @@ export const SEED_PRODUCTS: Product[] = [
     condition: 'new',
   }),
   p({
-    id: 'tan-vivo-16',
-    merchantId: 'tan-computers',
-    sku: 'TAN-VIVO-16',
+    id: 'sherpa-vivo-16',
+    merchantId: 'sherpa-computers',
+    sku: 'SHP-VIVO-16',
     brand: 'ASUS',
     model: 'Vivobook Pro 16',
     title: 'ASUS Vivobook Pro 16 (Ryzen 5 / RTX 3050)',
@@ -112,9 +155,9 @@ export const SEED_PRODUCTS: Product[] = [
     condition: 'new',
   }),
   p({
-    id: 'tan-tp-e14',
-    merchantId: 'tan-computers',
-    sku: 'TAN-TP-E14',
+    id: 'sherpa-tp-e14',
+    merchantId: 'sherpa-computers',
+    sku: 'SHP-TP-E14',
     brand: 'Lenovo',
     model: 'ThinkPad E14 Gen 6',
     title: 'Lenovo ThinkPad E14 Gen 6 (Core Ultra 5)',
@@ -141,9 +184,9 @@ export const SEED_PRODUCTS: Product[] = [
     condition: 'new',
   }),
   p({
-    id: 'tan-nitro-v16',
-    merchantId: 'tan-computers',
-    sku: 'TAN-NITRO-V16',
+    id: 'sherpa-nitro-v16',
+    merchantId: 'sherpa-computers',
+    sku: 'SHP-NITRO-V16',
     brand: 'Acer',
     model: 'Nitro V16',
     title: 'Acer Nitro V16 (Ryzen 7 / RTX 4060)',
@@ -170,9 +213,9 @@ export const SEED_PRODUCTS: Product[] = [
     condition: 'new',
   }),
   p({
-    id: 'tan-ideapad-5r',
-    merchantId: 'tan-computers',
-    sku: 'TAN-IDEAPAD-5R',
+    id: 'sherpa-ideapad-5r',
+    merchantId: 'sherpa-computers',
+    sku: 'SHP-IDEAPAD-5R',
     brand: 'Lenovo',
     model: 'IdeaPad Slim 5 (Refurbished)',
     title: 'Lenovo IdeaPad Slim 5 — certified refurbished',
@@ -557,7 +600,7 @@ export const SEED_PRODUCTS: Product[] = [
 
 /** Accessory / bundle catalogue used by merchant agents within their allowance. */
 export const SEED_BUNDLES: Record<string, { type: string; description: string; value: number }[]> = {
-  'tan-computers': [
+  'sherpa-computers': [
     { type: 'carry_bag', description: 'Padded 16" laptop backpack', value: 40 },
     { type: 'mouse', description: 'Wired gaming mouse', value: 25 },
   ],

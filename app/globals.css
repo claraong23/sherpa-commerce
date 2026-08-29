@@ -1,42 +1,121 @@
 @import 'tailwindcss';
 
+/*
+ * Light theme. See design.md for the full rationale.
+ *
+ * The load-bearing constraint: the four brand colours are bright and
+ * mid-luminance, so none of them clears 3.4:1 against white. They are FILLS
+ * that carry DARK text — never white text, and never used as text themselves.
+ * Where a coloured label is needed, the 600/700 shade does the work.
+ */
+
 @theme {
+  /* Geist is loaded and self-hosted by next/font in app/layout.tsx. The
+   * system stack stays as the fallback so the page still has correct metrics
+   * before the webfont settles. */
   --font-sans:
-    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+    var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono:
+    var(--font-geist-mono), ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Visa-adjacent, deliberately restrained */
-  --color-ink-950: #05070d;
-  --color-ink-900: #0a0e17;
-  --color-ink-850: #0e131f;
-  --color-ink-800: #131926;
-  --color-ink-700: #1b2333;
-  --color-ink-600: #273244;
-  --color-ink-500: #3b4761;
-  --color-ink-400: #5d6b85;
-  --color-ink-300: #8695ad;
-  --color-ink-200: #b4bfd1;
-  --color-ink-100: #dde3ec;
-  --color-ink-50: #f3f6fa;
+  /* ── Neutrals — slightly cool, to sit with Wisteria ──────────────────
+   * Contrast on white: 500 = 4.41:1, 600 = 7.10:1, 700 = 10.31:1.
+   * Secondary body copy uses 600. 500 is for labels ≥18px, icons, borders.
+   */
+  --color-slate-25: #fbfcfe;
+  --color-slate-50: #f4f7fb;
+  --color-slate-100: #eaeef6;
+  --color-slate-200: #dbe1ed;
+  --color-slate-300: #c2cad9;
+  --color-slate-400: #9aa4b8;
+  --color-slate-500: #6e7891;
+  --color-slate-600: #4e5871;
+  --color-slate-700: #384056;
+  --color-slate-800: #262d3e;
+  --color-slate-900: #171c28;
 
-  --color-brand-600: #1a1f71;
-  --color-brand-500: #2a35a8;
-  --color-brand-400: #4d5cd4;
-  --color-brand-300: #8b96ee;
+  /* ── Wisteria Blue — primary. Exposed as `brand-*`. ──────────────────
+   * 400 is the supplied colour and is a FILL (2.63:1 on white).
+   * 600 (5.82:1) and 700 (8.69:1) are the text-safe shades.
+   */
+  --color-brand-50: #f2f5fc;
+  --color-brand-100: #e3eaf9;
+  --color-brand-200: #c6d4f2;
+  --color-brand-300: #a3baeb;
+  --color-brand-400: #809fe4;
+  --color-brand-500: #5c7fd6;
+  --color-brand-600: #3f60bc;
+  --color-brand-700: #2c4791;
 
-  --color-gold-500: #f7b600;
-  --color-gold-400: #ffc93d;
+  /* ── Strong Cyan — success / verified. Exposed as `ok-*`. ────────────
+   * 400 is the supplied colour, a FILL (2.26:1 on white).
+   * 600 (5.03:1) is the text-safe shade.
+   */
+  --color-ok-50: #eafbfa;
+  --color-ok-100: #d0f5f3;
+  --color-ok-200: #9be9e5;
+  --color-ok-300: #5ad5d0;
+  --color-ok-400: #1bc0ba;
+  --color-ok-500: #15a09b;
+  --color-ok-600: #0e7c78;
+  --color-ok-700: #095b58;
 
-  --color-ok-500: #10b981;
-  --color-ok-400: #34d399;
-  --color-warn-500: #f59e0b;
-  --color-bad-500: #ef4444;
-  --color-bad-400: #f87171;
+  /* ── Amber Gold — pending / sealed / rank 1. `warn-*` and `gold-*`. ──
+   * NEVER carries text: 1.68:1 on white. Fill, bar, dot, border only.
+   * A label in this family uses 700 (6.51:1) on a 50 fill.
+   */
+  --color-warn-50: #fff9e6;
+  --color-warn-100: #fff1c2;
+  --color-warn-200: #fee283;
+  --color-warn-300: #fed04a;
+  --color-warn-400: #febd17;
+  --color-warn-500: #dfa004;
+  --color-warn-600: #a97a05;
+  --color-warn-700: #7a5804;
+
+  --color-gold-50: #fff9e6;
+  --color-gold-100: #fff1c2;
+  --color-gold-200: #fee283;
+  --color-gold-400: #febd17;
+  --color-gold-500: #dfa004;
+  --color-gold-600: #a97a05;
+  --color-gold-700: #7a5804;
+
+  /* ── Red — danger / decline. Exposed as `bad-*`. ─────────────────────
+   * Outside the brand palette by decision: a payment decline must read as a
+   * hard stop, and pink undersells it. 600 is 5.19:1 both as text on white
+   * and with white text on it, so it works as label and as fill.
+   */
+  --color-bad-50: #fef2f2;
+  --color-bad-100: #fee2e2;
+  --color-bad-200: #fecaca;
+  --color-bad-300: #fca5a5;
+  --color-bad-400: #f05252;
+  --color-bad-500: #e02424;
+  --color-bad-600: #d32424;
+  --color-bad-700: #a31515;
+
+  /* ── Wild Strawberry — secondary highlight, Challenger's accent. ─────
+   * Freed from the danger role. "Best value", counteroffer marker.
+   */
+  --color-berry-50: #fff0f5;
+  --color-berry-100: #ffdce7;
+  --color-berry-200: #feb6cb;
+  --color-berry-300: #fc7da6;
+  --color-berry-400: #f94680;
+  --color-berry-500: #e52468;
+  --color-berry-600: #c11555;
+  --color-berry-700: #8e0f3e;
+
+  /* Visa navy — reserved. Used only where a real Visa card is depicted. */
+  --color-visa-navy: #1a1f71;
+  --color-visa-gold: #f7b600;
 }
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   html,
@@ -45,16 +124,16 @@
   }
 
   body {
-    background: var(--color-ink-950);
-    color: var(--color-ink-100);
+    background: var(--color-slate-25);
+    color: var(--color-slate-700);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    font-feature-settings: 'cv02', 'cv03', 'cv04';
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background: var(--color-brand-400);
-    color: #fff;
+    background: var(--color-brand-200);
+    color: var(--color-slate-900);
   }
 
   /* Dense technical surfaces need a thin, unobtrusive scrollbar. */
@@ -66,11 +145,11 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-ink-700);
+    background: var(--color-slate-300);
     border-radius: 6px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-ink-600);
+    background: var(--color-slate-400);
   }
 
   input,
@@ -82,16 +161,29 @@
 }
 
 @layer utilities {
+  /*
+   * Light UI reads flat unless elevation is deliberate. Borders do the work;
+   * shadows are reserved for things that genuinely float.
+   */
   .panel {
-    background: color-mix(in oklab, var(--color-ink-900) 88%, transparent);
-    border: 1px solid var(--color-ink-700);
+    background: #ffffff;
+    border: 1px solid var(--color-slate-200);
     border-radius: 12px;
   }
 
   .panel-soft {
-    background: color-mix(in oklab, var(--color-ink-850) 70%, transparent);
-    border: 1px solid var(--color-ink-800);
+    background: var(--color-slate-50);
+    border: 1px solid var(--color-slate-200);
     border-radius: 10px;
+  }
+
+  .panel-raised {
+    background: #ffffff;
+    border: 1px solid var(--color-slate-200);
+    border-radius: 12px;
+    box-shadow:
+      0 8px 24px rgb(23 28 40 / 0.08),
+      0 1px 2px rgb(23 28 40 / 0.04);
   }
 
   .label-xs {
@@ -100,7 +192,7 @@
     letter-spacing: 0.09em;
     text-transform: uppercase;
     font-weight: 600;
-    color: var(--color-ink-400);
+    color: var(--color-slate-500);
   }
 
   .mono {
@@ -109,14 +201,16 @@
   }
 
   .grid-bg {
+    /* Lighter than the border token: on a near-white canvas a slate-200 grid
+     * competes with real content instead of sitting behind it. */
     background-image:
-      linear-gradient(color-mix(in oklab, var(--color-ink-700) 40%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in oklab, var(--color-ink-700) 40%, transparent) 1px, transparent 1px);
+      linear-gradient(var(--color-slate-100) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-slate-100) 1px, transparent 1px);
     background-size: 34px 34px;
   }
 
   .focus-ring:focus-visible {
-    outline: 2px solid var(--color-brand-400);
+    outline: 2px solid var(--color-brand-500);
     outline-offset: 2px;
   }
 }
@@ -135,23 +229,6 @@
 }
 .anim-in {
   animation: acFadeUp 0.24s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
-
-@keyframes acPacket {
-  0% {
-    offset-distance: 0%;
-    opacity: 0;
-  }
-  12% {
-    opacity: 1;
-  }
-  88% {
-    opacity: 1;
-  }
-  100% {
-    offset-distance: 100%;
-    opacity: 0;
-  }
 }
 
 @keyframes acPulse {
@@ -176,10 +253,35 @@
   animation: acDash 0.9s linear infinite;
 }
 
+/*
+ * Storefront hero objects.
+ *
+ * The rendered tokens drift rather than travel. A full traverse across the
+ * hero pulls the eye off the price and the spec row, which are the two things
+ * on this page a buyer is actually reading. Three different periods, none of
+ * them a multiple of another, so the group never resynchronises into a visible
+ * pulse.
+ */
+@keyframes acDrift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(var(--drift-rot, 0deg));
+  }
+  to {
+    transform: translate3d(var(--drift-x, 0), var(--drift-y, -18px), 0)
+      rotate(calc(var(--drift-rot, 0deg) + var(--drift-spin, 6deg)));
+  }
+}
+.drift {
+  animation: acDrift var(--drift-dur, 9s) cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  animation-delay: var(--drift-delay, 0s);
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .anim-in,
   .anim-pulse,
-  .anim-dash {
+  .anim-dash,
+  .drift {
     animation: none !important;
   }
 }

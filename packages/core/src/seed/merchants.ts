@@ -4,20 +4,20 @@ const CREATED = '2026-08-01T02:00:00.000Z'
 
 export const SEED_MERCHANTS: Merchant[] = [
   {
-    id: 'tan-computers',
-    name: 'Tan Computers',
-    slug: 'tan-computers',
+    id: 'sherpa-computers',
+    name: 'Sherpa Computers',
+    slug: 'sherpa-computers',
     sizeType: 'sme',
     category: 'laptops',
-    websiteUrl: 'https://tan-computers-demo.myshopify.com',
+    websiteUrl: 'https://sherpa-computers-demo.myshopify.com',
     platform: 'shopify',
     commercePlatform: 'shopify',
     currency: 'SGD',
-    agentId: 'merchant_tan_computers_8H3K2',
+    agentId: 'merchant_sherpa_computers_8H3K2',
     visaMode: 'simulated',
     networkEnabled: true,
     storefrontEnabled: true,
-    logoHue: 24,
+    logoHue: 220, // Wisteria Blue
     createdAt: CREATED,
   },
   {
@@ -34,7 +34,7 @@ export const SEED_MERCHANTS: Merchant[] = [
     visaMode: 'simulated',
     networkEnabled: true,
     storefrontEnabled: true,
-    logoHue: 212,
+    logoHue: 178, // Strong Cyan
     createdAt: CREATED,
   },
   {
@@ -51,14 +51,14 @@ export const SEED_MERCHANTS: Merchant[] = [
     visaMode: 'simulated',
     networkEnabled: true,
     storefrontEnabled: true,
-    logoHue: 158,
+    logoHue: 340, // Wild Strawberry
     createdAt: CREATED,
   },
 ]
 
 export const SEED_PROFILES: MerchantProfile[] = [
   {
-    merchantId: 'tan-computers',
+    merchantId: 'sherpa-computers',
     primaryObjective: 'inventory_turnover',
     secondaryObjective: 'margin',
     maxDiscountPct: 8,

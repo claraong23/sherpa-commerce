@@ -79,8 +79,8 @@ export function Workspace({
         {sandbox.connection.connected && !showVoice && sandbox.stage !== 'live' && (
           <div className="panel flex flex-wrap items-center justify-between gap-2 px-4 py-2.5">
             <div>
-              <div className="text-[12.5px] font-medium text-white">Prefer to talk?</div>
-              <div className="text-[11px] text-ink-500">
+              <div className="text-[12.5px] font-medium text-slate-900">Prefer to talk?</div>
+              <div className="text-[11px] text-slate-500">
                 {sandbox.voice.available
                   ? 'A voice agent will ask only what is still missing.'
                   : 'OpenAI Realtime is not configured — the call falls back to browser recording.'}
@@ -148,24 +148,24 @@ function DetectionCard({
 
   return (
     <section className="panel anim-in overflow-hidden">
-      <header className="flex items-center justify-between border-b border-ink-800 px-4 py-2.5">
+      <header className="flex items-center justify-between border-b border-slate-200 px-4 py-2.5">
         <span className="label-xs">Platform detection</span>
         <Badge tone={d.confidence > 0.7 ? 'ok' : 'warn'}>{Math.round(d.confidence * 100)}% confidence</Badge>
       </header>
 
       <div className="p-4">
         <div className="flex items-baseline gap-2">
-          <span className="text-[22px] font-semibold capitalize text-white">{d.commercePlatform}</span>
-          <span className="text-[11.5px] text-ink-500">
+          <span className="text-[22px] font-semibold capitalize text-slate-900">{d.commercePlatform}</span>
+          <span className="text-[11.5px] text-slate-500">
             website {d.websitePlatform} · commerce {d.commercePlatform}
           </span>
         </div>
 
-        <div className="mono mt-3 rounded-lg border border-ink-700 bg-ink-850 p-3 text-[10.5px] leading-relaxed text-ink-400">
-          <div className="mb-1.5 text-ink-500">signals · method={d.method}</div>
+        <div className="mono mt-3 rounded-lg border border-slate-300 bg-slate-50 p-3 text-[10.5px] leading-relaxed text-slate-600">
+          <div className="mb-1.5 text-slate-500">signals · method={d.method}</div>
           {d.signals.map((s, i) => (
             <div key={i} className="flex gap-1.5">
-              <span className="text-ok-500">✓</span>
+              <span className="text-ok-600">✓</span>
               {s}
             </div>
           ))}
@@ -194,18 +194,18 @@ function DetectionCard({
                   className={clsx(
                     'focus-ring rounded-lg border px-2.5 py-2 text-left text-[11.5px] capitalize transition-colors',
                     p === 'shopify'
-                      ? 'border-ok-500/40 bg-ok-500/[0.07] text-ink-100'
-                      : 'border-ink-700 bg-ink-850 text-ink-400 hover:border-ink-600',
+                      ? 'border-ok-200 bg-ok-50 text-slate-900'
+                      : 'border-slate-300 bg-slate-50 text-slate-600 hover:border-slate-300',
                   )}
                 >
                   {p}
-                  <span className="mt-0.5 block text-[9.5px] text-ink-600">
+                  <span className="mt-0.5 block text-[9.5px] text-slate-400">
                     {p === 'shopify' ? 'No-code connector' : 'Adapter roadmap'}
                   </span>
                 </button>
               ))}
             </div>
-            <p className="mt-2 text-[10.5px] leading-relaxed text-ink-500">
+            <p className="mt-2 text-[10.5px] leading-relaxed text-slate-500">
               Shopify is the implemented no-code connector in this prototype. Other platforms route to the
               developer path with generated API docs.
             </p>
@@ -220,7 +220,7 @@ function ConnectionCard({ sandbox }: { sandbox: SandboxState }) {
   const c = sandbox.connection
   return (
     <section className="panel anim-in overflow-hidden">
-      <header className="flex items-center justify-between border-b border-ink-800 px-4 py-2.5">
+      <header className="flex items-center justify-between border-b border-slate-200 px-4 py-2.5">
         <span className="label-xs">Store connection</span>
         <Badge tone={c.mode === 'shopify' ? 'ok' : 'warn'}>
           <StatusDot tone={c.mode === 'shopify' ? 'ok' : 'pending'} />
@@ -234,7 +234,7 @@ function ConnectionCard({ sandbox }: { sandbox: SandboxState }) {
         <Stat label="Orders" value={c.orders} />
       </div>
       {c.mode === 'demo' && (
-        <div className="border-t border-ink-800 px-4 py-2 text-[10.5px] leading-relaxed text-ink-500">
+        <div className="border-t border-slate-200 px-4 py-2 text-[10.5px] leading-relaxed text-slate-500">
           Backed by the seeded catalogue mirror. Set SHOPIFY_ADMIN_ACCESS_TOKEN and
           SHOPIFY_DEMO_STORE_DOMAIN to pull from the live store through the GraphQL Admin API.
         </div>
@@ -246,13 +246,13 @@ function ConnectionCard({ sandbox }: { sandbox: SandboxState }) {
 function CatalogueCard({ sandbox }: { sandbox: SandboxState }) {
   return (
     <section className="panel anim-in overflow-hidden">
-      <header className="flex items-center justify-between border-b border-ink-800 px-4 py-2.5">
+      <header className="flex items-center justify-between border-b border-slate-200 px-4 py-2.5">
         <span className="label-xs">Catalogue preview</span>
-        <span className="mono text-[10.5px] text-ink-500">
+        <span className="mono text-[10.5px] text-slate-500">
           {sandbox.connection.productsSynced} normalized records
         </span>
       </header>
-      <div className="divide-y divide-ink-800">
+      <div className="divide-y divide-slate-200">
         {sandbox.catalogue.map((p) => (
           <div key={p.id} className="flex items-center gap-3 px-4 py-2.5">
             {p.imageUrl && (
@@ -261,22 +261,23 @@ function CatalogueCard({ sandbox }: { sandbox: SandboxState }) {
                 alt=""
                 width={56}
                 height={35}
-                className="h-[35px] w-[56px] shrink-0 rounded border border-ink-700 object-cover"
-                unoptimized
+                className="h-[35px] w-[56px] shrink-0 rounded border border-slate-300 object-cover"
+                // See the storefront grid: SVG placeholders bypass the optimizer.
+                unoptimized={p.imageUrl.endsWith('.svg')}
               />
             )}
             <div className="min-w-0 flex-1">
-              <div className="truncate text-[12.5px] font-medium text-ink-100">{p.title}</div>
-              <div className="mono mt-0.5 truncate text-[10px] text-ink-500">
+              <div className="truncate text-[12.5px] font-medium text-slate-900">{p.title}</div>
+              <div className="mono mt-0.5 truncate text-[10px] text-slate-500">
                 {p.sku} · {p.gpu} · {p.ramGb} GB
               </div>
             </div>
             <div className="shrink-0 text-right">
-              <div className="mono text-[12.5px] text-white">
+              <div className="mono text-[12.5px] text-slate-900">
                 {p.currency} {p.price.toLocaleString('en-SG')}
               </div>
               <div
-                className={clsx('mono text-[10px]', p.stock > 0 ? 'text-ink-500' : 'text-bad-400')}
+                className={clsx('mono text-[10px]', p.stock > 0 ? 'text-slate-500' : 'text-bad-600')}
               >
                 {p.stock > 0 ? `${p.stock} in stock` : 'out of stock'}
               </div>
@@ -308,14 +309,14 @@ function RulesCard({
 
   return (
     <section className="panel anim-in overflow-hidden">
-      <header className="flex items-center justify-between border-b border-ink-800 px-4 py-2.5">
+      <header className="flex items-center justify-between border-b border-slate-200 px-4 py-2.5">
         <span className="label-xs">Merchant rules</span>
         <Badge tone={allApproved ? 'ok' : 'warn'}>
           {sandbox.rules.filter((r) => r.approved).length}/{sandbox.rules.length} approved
         </Badge>
       </header>
 
-      <div className="grid grid-cols-2 gap-3 border-b border-ink-800 p-4 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 border-b border-slate-200 p-4 sm:grid-cols-4">
         <NumberField
           label="Primary objective"
           text={p.primaryObjective?.replace(/_/g, ' ') ?? 'not set'}
@@ -340,9 +341,9 @@ function RulesCard({
         />
       </div>
 
-      <div className="divide-y divide-ink-800">
+      <div className="divide-y divide-slate-200">
         {sandbox.rules.length === 0 ? (
-          <div className="px-4 py-4 text-[11.5px] text-ink-600">
+          <div className="px-4 py-4 text-[11.5px] text-slate-400">
             No rules captured yet. Answer the questions in the chat, or run the voice call.
           </div>
         ) : (
@@ -352,8 +353,8 @@ function RulesCard({
         )}
       </div>
 
-      <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-ink-800 px-4 py-3">
-        <p className="max-w-md text-[10.5px] leading-relaxed text-ink-500">
+      <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 px-4 py-3">
+        <p className="max-w-md text-[10.5px] leading-relaxed text-slate-500">
           Unapproved rules are ignored by the offer validator. Nothing here affects a customer offer until
           you approve it.
         </p>
@@ -384,8 +385,8 @@ function RuleRow({
         className={clsx(
           'focus-ring mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-[5px] border text-[10px] font-bold transition-colors',
           rule.approved
-            ? 'border-ok-500/50 bg-ok-500/15 text-ok-400'
-            : 'border-ink-600 bg-ink-850 text-transparent hover:border-ink-500',
+            ? 'border-ok-200 bg-ok-50 text-ok-600'
+            : 'border-slate-300 bg-slate-50 text-transparent hover:border-slate-400',
         )}
         aria-label={rule.approved ? 'Unapprove rule' : 'Approve rule'}
       >
@@ -403,20 +404,20 @@ function RuleRow({
               if (text.trim() && text !== rule.text) onChange({ ...rule, text: text.trim() })
             }}
             onKeyDown={(e) => e.key === 'Enter' && (e.target as HTMLInputElement).blur()}
-            className="focus-ring w-full rounded border border-ink-600 bg-ink-850 px-2 py-1 text-[12px] text-ink-100"
+            className="focus-ring w-full rounded border border-slate-300 bg-slate-50 px-2 py-1 text-[12px] text-slate-900"
           />
         ) : (
           <button
             onClick={() => setEditing(true)}
-            className="focus-ring w-full text-left text-[12px] leading-relaxed text-ink-100 hover:text-white"
+            className="focus-ring w-full text-left text-[12px] leading-relaxed text-slate-900 hover:text-slate-900"
           >
             {rule.text}
           </button>
         )}
         <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
-          <span className="mono text-[9.5px] text-ink-600">{rule.kind}</span>
-          <span className="text-[9.5px] text-ink-700">·</span>
-          <span className="text-[9.5px] text-ink-600">from {rule.source}</span>
+          <span className="mono text-[9.5px] text-slate-400">{rule.kind}</span>
+          <span className="text-[9.5px] text-slate-300">·</span>
+          <span className="text-[9.5px] text-slate-400">from {rule.source}</span>
           {Object.keys(rule.params).length > 0 && (
             <Badge tone="neutral">enforceable</Badge>
           )}
@@ -425,7 +426,7 @@ function RuleRow({
 
       <button
         onClick={() => onRemove(rule)}
-        className="focus-ring shrink-0 rounded px-1 text-[14px] leading-none text-ink-600 hover:text-bad-400"
+        className="focus-ring shrink-0 rounded px-1 text-[14px] leading-none text-slate-400 hover:text-bad-600"
         aria-label="Remove rule"
       >
         ×
@@ -448,7 +449,7 @@ function VisaCard({
   const v = sandbox.visa
   return (
     <section className="panel anim-in overflow-hidden">
-      <header className="flex items-center justify-between border-b border-ink-800 px-4 py-2.5">
+      <header className="flex items-center justify-between border-b border-slate-200 px-4 py-2.5">
         <span className="label-xs">Visa acceptance</span>
         {v.mode && <Badge tone={v.mode === 'sandbox' ? 'ok' : 'warn'}>{v.mode}</Badge>}
       </header>
@@ -480,7 +481,7 @@ function VisaCard({
           </Button>
         ) : (
           <>
-            <div className="mt-3 rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-[10.5px] leading-relaxed text-ink-400">
+            <div className="mt-3 rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-[10.5px] leading-relaxed text-slate-600">
               {v.mode === 'sandbox'
                 ? 'Sandbox acceptance configured. Authorizations will hit apitest.visaacceptance.com; no real money moves.'
                 : 'No Visa Acceptance credentials configured on this deployment, so authorizations are simulated to the documented request/response model. Set VISA_ACCEPTANCE_MODE=sandbox with merchant id, key id and secret for the real sandbox call.'}
@@ -508,8 +509,8 @@ function LiveCard({
   const [copied, setCopied] = useState(false)
 
   return (
-    <section className="panel anim-in overflow-hidden border-ok-500/30">
-      <header className="flex items-center justify-between border-b border-ink-800 bg-ok-500/[0.06] px-4 py-2.5">
+    <section className="panel anim-in overflow-hidden border-ok-200">
+      <header className="flex items-center justify-between border-b border-slate-200 bg-ok-50 px-4 py-2.5">
         <span className="label-xs">Agent live</span>
         <Badge tone="ok">
           <StatusDot tone="ok" pulse />
@@ -518,8 +519,8 @@ function LiveCard({
       </header>
 
       <div className="p-4">
-        <div className="text-[18px] font-semibold text-white">Your agent is live.</div>
-        <div className="mono mt-1 text-[11px] text-ink-400">{a.agentId}</div>
+        <div className="text-[18px] font-semibold text-slate-900">Your agent is live.</div>
+        <div className="mono mt-1 text-[11px] text-slate-600">{a.agentId}</div>
 
         <div className="mt-4 flex flex-wrap gap-2">
           {a.storefrontUrl && (
@@ -541,10 +542,10 @@ function LiveCard({
           </Link>
         </div>
 
-        <label className="mt-4 flex cursor-pointer items-center justify-between rounded-lg border border-ink-700 bg-ink-850 px-3 py-2.5">
+        <label className="mt-4 flex cursor-pointer items-center justify-between rounded-lg border border-slate-300 bg-slate-50 px-3 py-2.5">
           <span>
-            <span className="block text-[12.5px] font-medium text-ink-100">Sell through agent network</span>
-            <span className="block text-[10.5px] text-ink-500">
+            <span className="block text-[12.5px] font-medium text-slate-900">Sell through agent network</span>
+            <span className="block text-[10.5px] text-slate-500">
               Receive structured customer intents and construct offers
             </span>
           </span>
@@ -559,7 +560,7 @@ function LiveCard({
         {a.embedSnippet && (
           <div className="mt-3">
             <div className="label-xs mb-1.5">Storefront embed (non-Shopify sites)</div>
-            <div className="mono relative rounded-lg border border-ink-700 bg-ink-850 p-2.5 pr-16 text-[9.5px] leading-relaxed break-all text-ink-400">
+            <div className="mono relative rounded-lg border border-slate-300 bg-slate-50 p-2.5 pr-16 text-[9.5px] leading-relaxed break-all text-slate-600">
               {a.embedSnippet}
               <button
                 onClick={() => {
@@ -567,15 +568,15 @@ function LiveCard({
                   setCopied(true)
                   setTimeout(() => setCopied(false), 1600)
                 }}
-                className="focus-ring absolute right-2 top-2 rounded border border-ink-600 bg-ink-800 px-1.5 py-0.5 text-[9.5px] text-ink-300 hover:text-white"
+                className="focus-ring absolute right-2 top-2 rounded border border-slate-300 bg-slate-100 px-1.5 py-0.5 text-[9.5px] text-slate-700 hover:text-slate-900"
               >
                 {copied ? 'copied' : 'copy'}
               </button>
             </div>
-            <p className="mt-1.5 text-[10px] leading-relaxed text-ink-500">
+            <p className="mt-1.5 text-[10px] leading-relaxed text-slate-500">
               On Shopify this is not needed — the storefront agent ships as a Theme App Extension app embed
               block. See{' '}
-              <code className="mono text-ink-400">extensions/storefront-chat</code>.
+              <code className="mono text-slate-600">extensions/storefront-chat</code>.
             </p>
           </div>
         )}
@@ -604,8 +605,8 @@ function IntegrationFooter({ sandbox }: { sandbox: SandboxState }) {
           ] as [string, string][]
         ).map(([k, v]) => (
           <div key={k} className="flex items-baseline justify-between gap-2">
-            <span className="text-ink-500">{k}</span>
-            <span className="mono truncate text-ink-300">{v}</span>
+            <span className="text-slate-500">{k}</span>
+            <span className="mono truncate text-slate-700">{v}</span>
           </div>
         ))}
       </div>
@@ -619,7 +620,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <div className="label-xs">{label}</div>
-      <div className="mono mt-0.5 truncate text-[12px] text-ink-100">{value}</div>
+      <div className="mono mt-0.5 truncate text-[12px] text-slate-900">{value}</div>
     </div>
   )
 }
@@ -628,7 +629,7 @@ function NumberField({ label, text }: { label: string; text: string }) {
   return (
     <div>
       <div className="label-xs">{label}</div>
-      <div className="mt-0.5 text-[12.5px] capitalize text-ink-100">{text}</div>
+      <div className="mt-0.5 text-[12.5px] capitalize text-slate-900">{text}</div>
     </div>
   )
 }
@@ -662,7 +663,7 @@ function EditableNumber({
     <div>
       <div className="label-xs">{label}</div>
       <div className="mt-0.5 flex items-baseline gap-0.5">
-        {prefix && <span className="text-[11px] text-ink-500">{prefix}</span>}
+        {prefix && <span className="text-[11px] text-slate-500">{prefix}</span>}
         <input
           value={draft}
           onFocus={() => setFocused(true)}
@@ -675,9 +676,9 @@ function EditableNumber({
           onKeyDown={(e) => e.key === 'Enter' && (e.target as HTMLInputElement).blur()}
           placeholder="—"
           inputMode="decimal"
-          className="focus-ring mono w-14 rounded border border-transparent bg-transparent text-[12.5px] text-ink-100 hover:border-ink-700 focus:border-ink-600"
+          className="focus-ring mono w-14 rounded border border-transparent bg-transparent text-[12.5px] text-slate-900 hover:border-slate-300 focus:border-slate-300"
         />
-        {suffix && <span className="text-[11px] text-ink-500">{suffix}</span>}
+        {suffix && <span className="text-[11px] text-slate-500">{suffix}</span>}
       </div>
     </div>
   )

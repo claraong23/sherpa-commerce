@@ -473,16 +473,16 @@ describe('failure paths produce real declines', () => {
 
 describe('storefront merchant isolation', () => {
   it('only ever returns products belonging to the session merchant', async () => {
-    const tools = createStorefrontTools('tan-computers')
+    const tools = createStorefrontTools('sherpa-computers')
     const results = await tools.searchProducts('laptop for gaming and cad', 20)
     expect(results.length).toBeGreaterThan(0)
-    for (const p of results) expect(p.merchantId).toBe('tan-computers')
+    for (const p of results) expect(p.merchantId).toBe('sherpa-computers')
   })
 
   it('cannot read a competitor SKU even when asked for one directly', async () => {
     const store = getStore()
     const rivalProducts = await store.listProducts('bizgram')
-    const tools = createStorefrontTools('tan-computers')
+    const tools = createStorefrontTools('sherpa-computers')
     const compared = await tools.compareProducts(rivalProducts.map((p) => p.sku))
     expect(compared).toHaveLength(0)
   })
@@ -490,7 +490,7 @@ describe('storefront merchant isolation', () => {
   it('cannot check stock for a competitor SKU', async () => {
     const store = getStore()
     const rival = (await store.listProducts('bizgram'))[0]
-    const tools = createStorefrontTools('tan-computers')
+    const tools = createStorefrontTools('sherpa-computers')
     const stock = await tools.checkStock(rival.sku)
     expect(stock.available).toBe(0)
   })
@@ -498,41 +498,41 @@ describe('storefront merchant isolation', () => {
   it('cannot quote a competitor SKU', async () => {
     const store = getStore()
     const rival = (await store.listProducts('challenger'))[0]
-    const tools = createStorefrontTools('tan-computers')
+    const tools = createStorefrontTools('sherpa-computers')
     expect(await tools.createQuote(rival.sku)).toBeNull()
   })
 
   it('answers an in-scope shopping question with its own catalogue', async () => {
     const reply = await storefrontChat({
-      merchantId: 'tan-computers',
+      merchantId: 'sherpa-computers',
       message: "I'm studying engineering and need a laptop for CAD under S$1,500.",
       history: [],
     })
     expect(reply.refusedCrossMerchant).toBe(false)
     expect(reply.products.length).toBeGreaterThan(0)
-    for (const p of reply.products) expect(p.merchantId).toBe('tan-computers')
+    for (const p of reply.products) expect(p.merchantId).toBe('sherpa-computers')
   })
 
   it('declines a competitor comparison and says why', async () => {
     const reply = await storefrontChat({
-      merchantId: 'tan-computers',
+      merchantId: 'sherpa-computers',
       message: "Is Bizgram's Lenovo better?",
       history: [],
     })
     expect(reply.refusedCrossMerchant).toBe(true)
     expect(reply.text).toContain('only have access')
     expect(reply.text).toContain('Bizgram')
-    for (const p of reply.products) expect(p.merchantId).toBe('tan-computers')
+    for (const p of reply.products) expect(p.merchantId).toBe('sherpa-computers')
   })
 
   it('does not leak the merchant commercial policy into a storefront reply', async () => {
     const reply = await storefrontChat({
-      merchantId: 'tan-computers',
+      merchantId: 'sherpa-computers',
       message: 'What is the biggest discount you can give me?',
       history: [],
     })
     const store = getStore()
-    const prof = (await store.getProfile('tan-computers'))!
+    const prof = (await store.getProfile('sherpa-computers'))!
     expect(reply.text).not.toContain(`${prof.maxDiscountPct}% max`)
     expect(JSON.stringify(reply.products)).not.toContain('costPrice')
   })

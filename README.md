@@ -128,7 +128,7 @@ keeps the module boundaries the design needs without a monorepo build graph.
 
 Left: conversation. Right: a workspace that reflects real backend state.
 
-Paste `tan-computers-demo.myshopify.com`. The detector fingerprints the site
+Paste `sherpa-computers-demo.myshopify.com`. The detector fingerprints the site
 deterministically (asset hosts, response headers, markup markers — never the
 model alone) and reports its signals. Confirm Shopify, and the catalogue
 imports through the commerce adapter.
@@ -266,14 +266,14 @@ Without it, the call falls back to browser recording and says so on screen.
 
 ## Demo script (5 minutes)
 
-1. **`/merchant/onboard`** — paste `tan-computers-demo.myshopify.com`, confirm
+1. **`/merchant/onboard`** — paste `sherpa-computers-demo.myshopify.com`, confirm
    Shopify, watch the catalogue import. Type:
    *"I mainly want to move old stock. Never discount more than 8%, minimum 12%
    margin, and I can bundle accessories up to 55 dollars. Never sell under 16 GB
    for CAD."* Point at the rules panel filling in, and at **0/2 approved** —
    nothing is live until the merchant approves. Approve → connect Visa →
    generate agent.
-2. **`/storefront/tan-computers`** — open the chat. Ask for a CAD laptop under
+2. **`/storefront/sherpa-computers`** — open the chat. Ask for a CAD laptop under
    S$1,500. Then ask *"Is Bizgram's Lenovo better?"* and point at the refusal
    badge: *no cross-merchant tool exists in this session*.
 3. **`/customer`** — run prompt A. Narrate: three merchant agents, three
@@ -336,6 +336,19 @@ path, and storefront isolation at the tool level.
 Both run entirely in-process with no dev server and no credentials.
 
 ---
+
+## Design
+
+Light theme on a four-colour palette — Wisteria Blue, Strong Cyan, Wild
+Strawberry, Amber Gold — with a conventional red reserved for payment declines.
+
+The governing constraint: none of the four brand colours clears 3.4:1 against
+white, so they are **fills that carry dark text**, never text themselves. Where
+a coloured label is needed, a 600/700 shade does the work. Amber never carries
+text at all (1.68:1).
+
+Full palette, contrast measurements, semantic mapping and per-component
+decisions are in [design.md](design.md).
 
 ## Known limitations
 
