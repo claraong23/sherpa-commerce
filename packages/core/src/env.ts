@@ -61,26 +61,32 @@ export type ServerEnv = ReturnType<typeof serverEnv>
 /** Integration status, safe to expose to the developer/detail UI. Contains no secrets. */
 export function integrationStatus() {
   const env = serverEnv()
+  // If no live integration credentials are present, treat the deployment as
+  // demo-safe regardless of the explicit `DEMO_MODE` setting. This makes the
+  // app resilient when a user forgets to flip env flags but has no secrets.
+  const hasAnyLiveIntegration = Boolean(
+    env.openaiApiKey ||
+      (env.supabaseUrl && env.supabaseServiceRoleKey) ||
+      (env.shopifyAdminToken && env.shopifyStoreDomain) ||
+      (env.visaMode === 'sandbox' && env.visaMerchantId && env.visaKeyId && env.visaSecretKey) ||
+      (env.tapPrivateKey && env.tapPublicKey),
+  )
+
+  const demoMode = env.demoMode || !hasAnyLiveIntegration
+
   return {
-    demoMode: env.demoMode,
+    demoMode,
     llm: env.openaiApiKey && env.enableLlm ? 'live' : 'deterministic-fallback',
     llmModel: env.openaiApiKey && env.enableLlm ? env.openaiModel : null,
-    database:
-      env.supabaseUrl && env.supabaseServiceRoleKey ? 'supabase' : 'in-memory-seed',
+    database: env.supabaseUrl && env.supabaseServiceRoleKey ? 'supabase' : 'in-memory-seed',
     shopify:
-      env.shopifyAdminToken && env.shopifyStoreDomain && env.enableShopifySync
-        ? 'connected'
-        : 'demo-mirror',
+      env.shopifyAdminToken && env.shopifyStoreDomain && env.enableShopifySync ? 'connected' : 'demo-mirror',
     shopifyStoreDomain: env.shopifyStoreDomain ?? null,
-    shopifyOrderCreate:
-      env.shopifyAdminToken && env.enableShopifyOrderCreate ? 'enabled' : 'not_configured',
+    shopifyOrderCreate: env.shopifyAdminToken && env.enableShopifyOrderCreate ? 'enabled' : 'not_configured',
     visa:
-      env.visaMode === 'sandbox' && env.visaMerchantId && env.visaKeyId && env.visaSecretKey
-        ? 'sandbox'
-        : 'mock',
+      env.visaMode === 'sandbox' && env.visaMerchantId && env.visaKeyId && env.visaSecretKey ? 'sandbox' : 'mock',
     visaBaseUrl: env.visaMode === 'sandbox' ? env.visaBaseUrl : null,
-    realtimeVoice:
-      env.openaiApiKey && env.enableRealtimeVoice ? 'openai-realtime' : 'recorder-fallback',
+    realtimeVoice: env.openaiApiKey && env.enableRealtimeVoice ? 'openai-realtime' : 'recorder-fallback',
     webauthn: env.enableWebauthn ? 'browser-webauthn' : 'simulated-confirmation',
     tapKeys: env.tapPrivateKey && env.tapPublicKey ? 'env-keys' : 'ephemeral-boot-keys',
   } as const
